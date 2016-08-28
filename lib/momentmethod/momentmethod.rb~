@@ -1,7 +1,7 @@
 require 'yaml'
 include Math
 
-class MomentMethod #名前MomentMethodは使われてる？
+class CalcMoment #名前MomentMethodは使われてる？
   #元の定数違う，多分間違い  BOLTZ = 1.380658e-16
   BOLTZ = 1.38064852e-16
   PLANCK = 6.626e-27
@@ -271,7 +271,7 @@ class MomentMethod #名前MomentMethodは使われてる？
   end
 end
 
-class MomentPlot < MomentMethod
+class MomentPlot < CalcMoment
   def initialize(structure, range)
     puts "Hi,MomentPlot"
     @structure=structure
