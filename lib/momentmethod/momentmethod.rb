@@ -1,7 +1,8 @@
 require 'yaml'
+require 'gnuplot'
 include Math
 
-class MomentMethod #名前MomentMethodは使われてる？
+class MomentMethod
   #元の定数違う，多分間違い  BOLTZ = 1.380658e-16
   BOLTZ = 1.38064852e-16
   PLANCK = 6.626e-27
@@ -9,6 +10,10 @@ class MomentMethod #名前MomentMethodは使われてる？
   AVOGADO = 6.023e23
 
   def initialize(structure)
+    ###plotのために必要な変数
+    @@data_temp=[]
+    @@data_energy=[]
+    ###
     puts "Hi,moment"
     @structure=structure
     puts "structure = #{@structure}"
@@ -23,6 +28,8 @@ class MomentMethod #名前MomentMethodは使われてる？
   def select(file='POTCAR')
     src = YAML.load_file(file)
     #src = YAML.load_file(POTCAR)
+    @@element=src[:element]
+    p "element=#{@@element}"
     p @@potential=case src[:type]
     #ここの微分式POTCARのほうにいれたい．メソッドそのままPOTCARに入れるのもありかも．．
     when 'lj_jindo'
@@ -39,9 +46,11 @@ class MomentMethod #名前MomentMethodは使われてる？
     p "a0="
     check(a0)
     for i in 1..10
+      break if @@element=="Ag"&& i==9 #Agは800K以降計算できないから
       temp = 100*(i-1)
       temp = 10 if i==1
-      p theta = BOLTZ*temp
+      @@data_temp << temp
+      theta = BOLTZ*temp
       gap = Array.new(6){ Array.new(201) }
       aa1,aa2=[],[]
       aa1[0]=a0
@@ -89,6 +98,7 @@ class MomentMethod #名前MomentMethodは使われてる？
       psi0_ev = ev_from_erg(psi0)
       psi_nonli_ev = ev_from_erg(psi_nonli)
       psi = u0_ev + psi0_ev + psi_nonli_ev
+      @@data_energy << psi
       puts "u0_ev, psi0_ev, psi_nonli_ev, psi, large_a"
       check(u0_ev, psi0_ev, psi_nonli_ev, psi, large_a)
       puts "\n"
@@ -271,6 +281,79 @@ class MomentMethod #名前MomentMethodは使われてる？
   end
 end
 
+class DataPlot < MomentMethod
+  def initialize(plot_type,structure)
+    p plot_type
+    p structure
+    MomentMethod.new(structure)
+
+
+    case plot_type
+    when "energy"
+      plot_energy
+    when "medea"
+      plot_medea
+    end
+  end
+  def plot_energy#free energy and temperature
+    Gnuplot.open do |gp|
+      Gnuplot::Plot.new( gp ) do |plot|
+        plot.set "term aqua size 800, 500"
+#        plot.multiplot
+#        plot.size "0.33,0.5"
+#        plot.origin "0.0,0.5"
+        plot.title  "#{@@element}"
+        plot.ylabel 'free energy[eV/atom]'
+        plot.xlabel 'temperature[K]'
+    #    plot.set "format x '%.2e'"
+    #    plot.set "format y '%.2e'"
+        x = @@data_temp
+        y = @@data_energy
+        plot.data << Gnuplot::DataSet.new( [x, y] ) do |ds|
+          ds.with = "lines"
+          ds.notitle
+        end
+      end
+    end
+  end
+  def plot_medea
+    @@data_medea_energy=[]
+    @@data_medea_temp=[]
+    File.open('medea_result') do |file|
+      file.each_line do |data|
+        # labmenには読み込んだ行が含まれる
+        @@data_medea_temp << data.split(" ")[0]
+        @@data_medea_energy << data.split(" ")[6].to_f*1.036e-2#kJ/molからeV/atomに変換
+      end
+    end
+    p @@data_medea_energy
+    p @@data_medea_temp
+
+    Gnuplot.open do |gp|
+      Gnuplot::Plot.new( gp ) do |plot|
+        plot.set "term aqua size 800, 500"
+        plot.title  "#{@@element}"
+        plot.ylabel 'free energy[eV/atom]'
+        plot.xlabel 'temperature[K]'
+        x = @@data_medea_temp
+        y = @@data_medea_energy
+        plot.data << Gnuplot::DataSet.new( [x, y] ) do |ds|
+          ds.with = "lines"
+          ds.title = "medea"
+        end
+        x = @@data_temp
+        y = @@data_energy
+        plot.data << Gnuplot::DataSet.new( [x, y] ) do |ds|
+          ds.with = "lines"
+          ds.title = "moment method"
+        end
+
+      end
+    end
+  end
+end
+
+
 class MomentPlot < MomentMethod
   def initialize(structure, range)
     puts "Hi,MomentPlot"
@@ -346,6 +429,7 @@ class MomentPlot < MomentMethod
       ")}
   end
 end
+
 #lj.rbにclassLJ_jindoがあるけど，後の切り分けのために新たに作成.理想はPOTCARの中
 class DiffLjJindo
   attr_reader :m, :n, :r0, :atom_mass
