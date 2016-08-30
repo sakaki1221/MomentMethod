@@ -21,8 +21,16 @@ command_parser = OptionParser.new do |opt|
   }
 end
 command_parser.parse!(@argv)
-target_path = @argv[0]==nil ? './' : @argv[0]
+$target_path = @argv[0]==nil ? './' : @argv[0]
 
+  case @opts[:calculation]
+  when :momentmethod then
+    MomentMethod.new(@opts[:structure])
+  when :plot then
+    DataPlot.new(@opts[:plot_type],@opts[:structure])
+  end
+
+=begin
 FileUtils.cd(target_path){
   case @opts[:calculation]
   when :momentmethod then
@@ -31,3 +39,4 @@ FileUtils.cd(target_path){
     DataPlot.new(@opts[:plot_type],@opts[:structure])
   end
 }
+=end

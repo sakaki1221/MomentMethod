@@ -25,8 +25,10 @@ class MomentMethod
     p val.join(", ")
   end
 
+#  def select(file='POTCAR')
   def select(file='POTCAR')
-    src = YAML.load_file(file)
+    p $target_path
+    src = YAML.load_file($target_path+"POTCAR")
     #src = YAML.load_file(POTCAR)
     @@element=src[:element]
     p "element=#{@@element}"
@@ -298,10 +300,13 @@ class DataPlot < MomentMethod
   def plot_energy#free energy and temperature
     Gnuplot.open do |gp|
       Gnuplot::Plot.new( gp ) do |plot|
-        plot.set "term aqua size 800, 500"
+        plot.set "term aqua size 500, 400"
+      #  plot.terminal "png enhanced"
 #        plot.multiplot
 #        plot.size "0.33,0.5"
 #        plot.origin "0.0,0.5"
+        #plot.set "output 'energy_#{@@element}.png'"
+    #    plot.output "energy.eps"
         plot.title  "#{@@element}"
         plot.ylabel 'free energy[eV/atom]'
         plot.xlabel 'temperature[K]'
@@ -319,7 +324,7 @@ class DataPlot < MomentMethod
   def plot_medea
     @@data_medea_energy=[]
     @@data_medea_temp=[]
-    File.open('medea_result') do |file|
+    File.open($target_path+'medea_result') do |file|
       file.each_line do |data|
         # labmenには読み込んだ行が含まれる
         @@data_medea_temp << data.split(" ")[0]
@@ -331,7 +336,7 @@ class DataPlot < MomentMethod
 
     Gnuplot.open do |gp|
       Gnuplot::Plot.new( gp ) do |plot|
-        plot.set "term aqua size 800, 500"
+        plot.set "term aqua size 500, 400"
         plot.title  "#{@@element}"
         plot.ylabel 'free energy[eV/atom]'
         plot.xlabel 'temperature[K]'
