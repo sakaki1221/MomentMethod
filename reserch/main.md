@@ -3,13 +3,17 @@ Cuの場合
 ```sh
 momentmethod sample_calc/jindo_Cu/ --plot energy
 ```
-![medea_Cu](./image/medea_Cu.png)
-![medea_Cu](./image/medea_Cu.png)
-TESTTT
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/momentmethod`. To experiment with that code, run `bin/console` for an interactive prompt.
+![Cu](./image/energy_Cu.png)
+![Ag](./image/energy_Ag.png)
+![Au](./image/energy_Au.png)
 
-TODO: Delete this and the text above, and describe your gem
-
+# Phonon-DOS法(Vasp)との比較
+```sh
+momentmethod sample_calc/jindo_Cu/ --plot medea
+```
+![medea_Cu](./image/medea_Cu.png)
+![medea_Ag](./image/medea_Ag.png)
+![medea_Au](./image/medea_Au.png)
 ## Installation
 
 Add this line to your application's Gemfile:
