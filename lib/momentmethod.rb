@@ -5,7 +5,7 @@ require 'momentmethod/momentmethod.rb'
 p ARGV
 @argv = ARGV
 #target_path = ARGV[0] #==nil ? './' : @argv[0]
-@opts = {calculation: :momentmethod, structure: "jindofcc", plot_type: nil}
+@opts = {calculation: :momentmethod, structure: "jindofcc", plot_type: "energy"}
 
 command_parser = OptionParser.new do |opt|
   opt.on('-v', '--version','show program Version.') {
