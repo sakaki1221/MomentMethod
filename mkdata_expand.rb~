@@ -1,0 +1,8 @@
+p tmp =  Dir.glob("./medea_result/CuAgAu_expansion/*_*")
+
+p File::open("#{tmp[0]}/Job.out") {|f|
+
+  f.each {|line| print line}
+}
+p File::dirname('#{tmp[0]}/Job.out')
+

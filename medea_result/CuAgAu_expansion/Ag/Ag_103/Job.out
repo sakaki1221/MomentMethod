@@ -1,0 +1,282 @@
+Startup is 'sourced'
+Opening the database
+Phonon calculation for Untitled_3
+
+Phonon parameters
+=================
+The calculation explores the full Brillouin zone and accounts for an interaction range of about 10.0 Angstroem.
+The asymmetric atoms are displaced by +/-0.02 Angstroem.
+
+In a first step, need to run an optimization of atom positions for the supercell containing 32 atoms.
+Then, need to run a total number of 2 single point energy calculations on supercells with displaced atoms containing 32 atoms.
+
+      Supercell transformation matrix              Supercell lattice vectors
+       2.00000    0.00000    0.00000             8.45075    0.00000    0.00000
+       0.00000    2.00000    0.00000             0.00000    8.45075    0.00000
+       0.00000    0.00000    2.00000             0.00000    0.00000    8.45075
+
+     Supercell           Site        Displaced atom     Displacement (fractional units)
+   ---------------    ----------     --------------     -------------------------------
+  undisplaced           ----            ----             0.00000    0.00000    0.00000
+  displaced_Ag__a       Ag              Ag               0.00237    0.00000    0.00000
+  displaced_Ag__b       Ag              Ag              -0.00237    0.00000    0.00000
+
+Invariance conditions are not enforced.
+No approximation to LO/TO splitting
+Properties: Phonon dispersion and form factors 
+            Phonon density of states 
+            Thermodynamic functions
+==========================================
+
+
+VASP parameters
+===============
+Since no magnetic moments are in the model, this is a non-magnetic calculation using 'normal' precision
+and a default planewave cutoff energy of 249.846 eV.
+
+The electronic iterations convergence is 1.00E-005 eV using the Normal (blocked Davidson) algorithm
+and reciprocal space projection operators.
+
+The requested k-spacing is 0.5 per Angstrom, which leads to a 6x6x6 mesh.
+This corresponds to actual k-spacings of 0.429 x 0.429 x 0.429 per Angstrom.
+
+Using first order Methfessel-Paxton smearing with a width of 0.2 eV.
+
+Other non-default parameters:
+	Wave functions is TRUE
+==========================================
+
+------------------------------------------------------------------------
+
+Using GGA-PBE / PAW potentials:
+	Ag
+
+Results for initial structural minimization of the supercell without displacements:
+--------------------------------------------------------------------------------------
+
+There are 1 symmetry-unique k-points
+The plane wave cutoff is 249.85 eV
+
+   VASP energy:             -89.107801 eV for Ag32
+
+   Initial VASP energy:     -89.107801 eV for Ag32
+   Relaxation energy:         0.000000 eV gained after 1 optimization steps.
+
+Electronic contributions:
+                          Empirical Formula          Cell
+                                    Ag          (Ag)32
+                          --------------- ---------------
+              VASP Energy        -268.675       -8597.594 kJ/mol
+      Energy of formation           4.151         132.842
+                  PV term         -57.753       -1848.102
+
+   This is the electronic part of the formation energy with respect to the
+   elements in their standard state. It is obtained from the total energy (above)
+   and tabulated VASP energies for the elements in their standard state.
+   See the documentation for more details.
+
+   Details for Ag:
+                                             VASP energy (Etot):     -268.67 kJ/mol
+       Standard state energy of 1.00 atoms of Ag  1.00 * -272.83:  -  -272.83
+                                                                   ----------
+                                        Energy of formation (Ef):        4.15 kJ/mol
+
+
+Cell parameters:
+ Parameter    Value    
+---------- ------------
+         a     8.450753
+         b     8.450753
+         c     8.450753
+     alpha    89.999999
+      beta    89.999999
+     gamma    89.999999
+
+    Volume    75.439045 Ang^3
+
+        Density:     9.497 Mg/m^3
+
+   The pressure given below is exerted by the system according to its volume.
+   Positive pressure would cause expansion during full geometry optimization.
+       Pressure:    -5.085 GPa
+               =   -50.850 kbar
+
+                      XX        YY        ZZ        XY        YZ        ZX
+         Stress:     5.085     5.085     5.085     0.000     0.000     0.000 GPa
+               =    50.850    50.850    50.850     0.000     0.000     0.000 kbar
+   The stress tensor above is imposed on the system, i.e. negative values of diagonal components 
+   would cause expansion of the corresponding lattice parameter upon full geometry optimization.
+   The pressure and stress include only electronic terms, i.e. the vibrational,
+   temperature and other terms are not included here.
+
+Fractional Coordinates:
+	Atom          Initial Coordinates             Final Coordinates
+	-----      -------- -------- --------      -------- -------- --------
+	Ag           0.7500   0.7500   0.5000        0.7500   0.7500   0.5000
+	Ag           0.7500   0.7500   0.0000        0.7500   0.7500   0.0000
+	Ag           0.7500   0.0000   0.2500        0.7500   0.0000   0.2500
+	Ag           0.7500   0.2500   0.5000        0.7500   0.2500   0.5000
+	Ag           0.0000   0.7500   0.2500        0.0000   0.7500   0.2500
+	Ag           0.0000   0.0000   0.5000        0.0000   0.0000   0.5000
+	Ag           0.2500   0.7500   0.5000        0.2500   0.7500   0.5000
+	Ag           0.7500   0.0000   0.7500        0.7500   0.0000   0.7500
+	Ag           0.7500   0.2500   0.0000        0.7500   0.2500   0.0000
+	Ag           0.7500   0.5000   0.2500        0.7500   0.5000   0.2500
+	Ag           0.0000   0.7500   0.7500        0.0000   0.7500   0.7500
+	Ag           0.0000   0.0000   0.0000        0.0000   0.0000   0.0000
+	Ag           0.0000   0.2500   0.2500        0.0000   0.2500   0.2500
+	Ag           0.0000   0.5000   0.5000        0.0000   0.5000   0.5000
+	Ag           0.2500   0.7500   0.0000        0.2500   0.7500   0.0000
+	Ag           0.2500   0.0000   0.2500        0.2500   0.0000   0.2500
+	Ag           0.2500   0.2500   0.5000        0.2500   0.2500   0.5000
+	Ag           0.5000   0.7500   0.2500        0.5000   0.7500   0.2500
+	Ag           0.5000   0.0000   0.5000        0.5000   0.0000   0.5000
+	Ag           0.7500   0.5000   0.7500        0.7500   0.5000   0.7500
+	Ag           0.0000   0.2500   0.7500        0.0000   0.2500   0.7500
+	Ag           0.0000   0.5000   0.0000        0.0000   0.5000   0.0000
+	Ag           0.2500   0.0000   0.7500        0.2500   0.0000   0.7500
+	Ag           0.2500   0.2500   0.0000        0.2500   0.2500   0.0000
+	Ag           0.2500   0.5000   0.2500        0.2500   0.5000   0.2500
+	Ag           0.5000   0.7500   0.7500        0.5000   0.7500   0.7500
+	Ag           0.5000   0.0000   0.0000        0.5000   0.0000   0.0000
+	Ag           0.5000   0.2500   0.2500        0.5000   0.2500   0.2500
+	Ag           0.5000   0.5000   0.5000        0.5000   0.5000   0.5000
+	Ag           0.2500   0.5000   0.7500        0.2500   0.5000   0.7500
+	Ag           0.5000   0.2500   0.7500        0.5000   0.2500   0.7500
+	Ag           0.5000   0.5000   0.0000        0.5000   0.5000   0.0000
+
+Results for supercell calculations:
+------------------------------------------------------------------------
+	        Supercell         Energy (eV)
+	      -------------      -------------
+	        undisplaced       -89.10780
+	     displaced_Ag__a      -89.10718
+	     displaced_Ag__b      -89.10718
+
+
+Symmetry analysis of Gamma point phonon frequencies:
+----------------------------------------------------
+   Crystal  Point  Group: O_h   (m3m) 
+   Supercell Point Group: O_h   (m3m) 
+    Table of irreducible representations of point group:
+ ------------------------------------------
+    IR     1  5  7  9 11  6  8 10 12 13 16 17 18 21 23 14 15 19 20 22 24  2  3  4 25 38 39 43 44 46 48 29 30 31 32 33 34 35 36 26 27 28 37 40 41 42 45 47
+ ------------------------------------------
+ A1g(R)    1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1   x^2+y^2+z^2                         
+ A2g       1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1                                       
+ Eg(R)     2 -1 -1 -1 -1 -1 -1 -1 -1  0  0  0  0  0  0  0  0  0  0  0  0  2  2  2  2  0  0  0  0  0  0 -1 -1 -1 -1 -1 -1 -1 -1  2  2  2  0  0  0  0  0  0   (2z^2-x^2-y^2, x^2-y^2)             
+ T1g       3  0  0  0  0  0  0  0  0 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1 -1 -1 -1  3  1  1  1  1  1  1  0  0  0  0  0  0  0  0 -1 -1 -1 -1 -1 -1 -1 -1 -1                                       
+ T2g(R)    3  0  0  0  0  0  0  0  0  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1  3 -1 -1 -1 -1 -1 -1  0  0  0  0  0  0  0  0 -1 -1 -1  1  1  1  1  1  1   (xy,xz,yz)                          
+ A1u       1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1                                       
+ A2u       1  1  1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1 -1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1                                       
+ Eu        2 -1 -1 -1 -1 -1 -1 -1 -1  0  0  0  0  0  0  0  0  0  0  0  0  2  2  2 -2  0  0  0  0  0  0  1  1  1  1  1  1  1  1 -2 -2 -2  0  0  0  0  0  0                                       
+ T1u(I)    3  0  0  0  0  0  0  0  0 -1 -1 -1 -1 -1 -1  1  1  1  1  1  1 -1 -1 -1 -3 -1 -1 -1 -1 -1 -1  0  0  0  0  0  0  0  0  1  1  1  1  1  1  1  1  1   (x,y,z)                             
+ T2u       3  0  0  0  0  0  0  0  0  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -3  1  1  1  1  1  1  0  0  0  0  0  0  0  0  1  1  1 -1 -1 -1 -1 -1 -1                                       
+ ------------------------------------------
+    Wave vector= 0.0000  0.0000  0.0000    no macro. electric field
+ Multi. Omega   Irreducible Representations
+  3     0.013     T1u(I)                                                                                                     
+Notation: (R)  Raman active mode
+          (I)  Infrared active mode
+          (RI) Raman and Infrared active mode
+
+Thermodynamic Properties
+   for empirical formula Ag
+
+The following thermodynamic functions are obtained from the phonon
+density of states within the harmonic approximation. The results are
+meaningful only below the melting point, which lies well below 3000 K
+for most materials.
+Definitions:
+      Cv            : vibrational heat capacity at constant volume
+E_vib(T)=E(T)-E(0)  : the change in vibrational internal energy from 0 K, where
+                        E(0) = E_elec + ZPE is the electronic energy of formation E_elec plus the zero point energy ZPE
+      S(T)          : the vibrational entropy at temperature T
+   -(A(T)-E(0))     : the change in the vibrational Helmholtz free energy from 0 K
+      E(T)          : the electronic energy of formation plus the vibrational internal energy, so this term is
+                        E_elec + ZPE + E_vib(T)
+      A(T)          : the electronic plus vibrational Helmholtz free energy,
+                        E(T) - T.S(T)
+Note that the electronic energy, which is part of the enthalpy and free energies,
+ is referenced to the elements in their standard state.
+
+Electronic energy =     4.15 kJ/mol (referenced to elements in the standard state)
+          PV term =   -57.75 kJ/mol
+Zero-point energy =     1.60 kJ/mol
+
+    T       Cv       E(T)-E(0)      S(T)   -(A(T)-E(0))     E(T)        A(T)
+    K     J/K/mol      kJ/mol     J/K/mol     kJ/mol       kJ/mol      kJ/mol
+  ----- ----------- ----------- ----------- ----------- ----------- -----------
+     0      0.0000      0.0000      0.0000      0.0000      5.7520      5.7520
+     1      0.0000      0.0000      0.0000      0.0000      5.7520      5.7520
+     2      0.0013      0.0000      0.0002      0.0000      5.7520      5.7520
+     3      0.0063      0.0000      0.0016      0.0000      5.7520      5.7520
+     4      0.0150      0.0000      0.0045      0.0000      5.7520      5.7520
+     5      0.0274      0.0000      0.0091      0.0000      5.7520      5.7520
+    10      0.2295      0.0005      0.0703      0.0002      5.7525      5.7518
+    15      1.1083      0.0035      0.2984      0.0010      5.7555      5.7510
+    20      2.8586      0.0131      0.8394      0.0037      5.7651      5.7483
+    30      7.4706      0.0644      2.8551      0.0213      5.8164      5.7307
+    40     11.6871      0.1610      5.6043      0.0632      5.9129      5.6888
+    50     14.8845      0.2947      8.5744      0.1341      6.0466      5.6179
+    60     17.1904      0.4557     11.5037      0.2345      6.2077      5.5174
+    70     18.8481      0.6363     14.2850      0.3636      6.3883      5.3884
+    80     20.0561      0.8311     16.8848      0.5196      6.5831      5.2323
+    90     20.9532      1.0364     19.3014      0.7007      6.7884      5.0513
+   100     21.6328      1.2495     21.5458      0.9051      7.0015      4.8469
+   125     22.7429      1.8055     26.5045      1.5075      7.5575      4.2445
+   150     23.3827      2.3828     30.7124      2.2241      8.1348      3.5279
+   175     23.7819      2.9727     34.3491      3.0384      8.7247      2.7136
+   200     24.0466      3.5708     37.5431      3.9378      9.3227      1.8142
+   225     24.2307      4.1743     40.3867      4.9126      9.9263      0.8394
+   250     24.3637      4.7819     42.9469      5.9548     10.5338     -0.2028
+   273     24.4559      5.3433     45.0953      6.9676     11.0953     -1.2156
+   275     24.4628      5.3922     45.2739      7.0580     11.1442     -1.3060
+   298     24.5333      5.9557     47.2417      8.1222     11.7077     -2.3702
+   300     24.5386      6.0048     47.4058      8.2169     11.7568     -2.4649
+   350     24.6451      7.2346     51.1971     10.6843     12.9866     -4.9323
+   400     24.7145      8.4687     54.4928     13.3283     14.2207     -7.5763
+   450     24.7623      9.7057     57.4067     16.1272     15.4577    -10.3752
+   500     24.7966     10.9447     60.0175     19.0639     16.6967    -13.3119
+   550     24.8220     12.1852     62.3821     22.1248     17.9372    -16.3728
+   600     24.8413     13.4268     64.5428     25.2987     19.1787    -19.5467
+   650     24.8564     14.6692     66.5318     28.5762     20.4212    -22.8242
+   700     24.8684     15.9123     68.3743     31.9494     21.6643    -26.1974
+   750     24.8780     17.1560     70.0904     35.4114     22.9080    -29.6595
+   800     24.8859     18.4001     71.6962     38.9565     24.1521    -33.2045
+   850     24.8925     19.6445     73.2051     42.5794     25.3965    -36.8274
+   900     24.8980     20.8893     74.6281     46.2756     26.6413    -40.5236
+   950     24.9027     22.1343     75.9744     50.0409     27.8863    -44.2889
+  1000     24.9067     23.3796     77.2518     53.8718     29.1315    -48.1198
+  1050     24.9101     24.6250     78.4671     57.7650     30.3770    -52.0130
+  1100     24.9130     25.8705     79.6260     61.7175     31.6225    -55.9655
+  1150     24.9156     27.1163     80.7335     65.7267     32.8682    -59.9747
+  1200     24.9179     28.3621     81.7939     69.7900     34.1141    -64.0380
+  1250     24.9199     29.6080     82.8112     73.9053     35.3600    -68.1533
+  1300     24.9217     30.8541     83.7886     78.0704     36.6060    -72.3184
+  1350     24.9233     32.1002     84.7292     82.2835     37.8522    -76.5315
+  1400     24.9247     33.3464     85.6356     86.5427     39.0984    -80.7907
+  1450     24.9260     34.5926     86.5103     90.8465     40.3446    -85.0945
+  1500     24.9271     35.8389     87.3553     95.1932     41.5909    -89.4412
+  1550     24.9282     37.0853     88.1727     99.5815     42.8373    -93.8295
+  1600     24.9291     38.3317     88.9641    104.0100     44.0837    -98.2580
+  1650     24.9300     39.5782     89.7312    108.4775     45.3302   -102.7255
+  1700     24.9307     40.8247     90.4755    112.9827     46.5767   -107.2307
+  1750     24.9315     42.0713     91.1981    117.5246     47.8233   -111.7726
+  1800     24.9321     43.3179     91.9006    122.1021     49.0699   -116.3501
+  1850     24.9327     44.5645     92.5837    126.7143     50.3165   -120.9623
+  1900     24.9333     45.8111     93.2486    131.3601     51.5631   -125.6081
+  1950     24.9338     47.0578     93.8963    136.0388     52.8098   -130.2868
+  2000     24.9343     48.3045     94.5275    140.7494     54.0565   -134.9974
+  2100     24.9351     50.7979     95.7441    150.2634     56.5499   -144.5114
+  2200     24.9359     53.2915     96.9041    159.8962     59.0435   -154.1442
+  2300     24.9365     55.7851     98.0125    169.6424     61.5371   -163.8904
+  2400     24.9371     58.2788     99.0739    179.4970     64.0307   -173.7450
+  2500     24.9376     60.7725    100.0918    189.4556     66.5245   -183.7036
+  2600     24.9380     63.2662    101.0700    199.5140     69.0182   -193.7620
+  2700     24.9384     65.7600    102.0111    209.6683     71.5120   -203.9163
+  2800     24.9388     68.2539    102.9180    219.9148     74.0059   -214.1628
+  2900     24.9391     70.7478    103.7932    230.2507     76.4997   -224.4987
+  3000     24.9394     73.2417    104.6386    240.6724     78.9937   -234.9204
+
+Job completed on Mon 29 August 2016 at 18:54:56 æ±äº¬ (æ¨™æº–æ™‚) after 73 s (0:01:13)

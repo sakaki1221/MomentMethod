@@ -1,0 +1,179 @@
+<?xml version='1.0'?>
+<!DOCTYPE MDRESULTS PUBLIC "-//MD//DTD MDRESULTS 1.0" "http://materialsdesign.com/DTD/mdresults_1_0.dtd">
+
+<MDRESULTS>
+  <System id="initial">
+    <Date>29 Aug 2016 09:40:12 GMT</Date>
+    <Characterization>
+      <PropertyValue property="symmetry" type="text" units="">P1</PropertyValue>
+      <PropertyValue property="setting" type="text" units="">P1</PropertyValue>
+      <PropertyValue property="empirical formula" type="text" units="">Au</PropertyValue>
+      <PropertyValue property="primitive cell formula" type="text" units="">Au32</PropertyValue>
+      <PropertyValue property="primitive Z" type="text" units="">32</PropertyValue>
+    </Characterization>
+  </System>
+  <Calculation id="initial">
+    <Date>29 Aug 2016 09:40:12 GMT</Date>
+    <System>initial</System>
+    <Results>
+      <PropertyValue property="VASP energy" type="float" units="eV">-102.338084</PropertyValue>
+      <PropertyValue property="Fermi energy" type="float" units="eV">5.297100</PropertyValue>
+      <PropertyValue dimensions="3 32" property="atomic derivatives" type="float" units="kJ/mol/m">0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000
+0.000 0.000 0.000</PropertyValue>
+      <PropertyValue property="cell volume" type="float" units="Ang^3">562.580</PropertyValue>
+      <PropertyValue property="pressure" type="float" units="GPa">3.204</PropertyValue>
+      <PropertyValue dimensions="6" property="stress" type="float" units="GPa">-3.20400 -3.20400 -3.20400 0.00000 0.00000 0.00000</PropertyValue>
+      <PropertyValue property="energy of formation" type="float" units="kJ/mol">7.1055</PropertyValue>
+      <PropertyValue property="heat of formation" type="float" units="kJ/mol">41.0271</PropertyValue>
+    </Results>
+  </Calculation>
+  <System id="displaced_Au__a">
+    <Date>29 Aug 2016 09:42:30 GMT</Date>
+    <Characterization>
+      <PropertyValue property="symmetry" type="text" units="">P1</PropertyValue>
+      <PropertyValue property="setting" type="text" units="">P1</PropertyValue>
+      <PropertyValue property="empirical formula" type="text" units="">Au</PropertyValue>
+      <PropertyValue property="primitive cell formula" type="text" units="">Au32</PropertyValue>
+      <PropertyValue property="primitive Z" type="text" units="">32</PropertyValue>
+    </Characterization>
+  </System>
+  <Calculation id="displaced_Au__a">
+    <Date>29 Aug 2016 09:42:30 GMT</Date>
+    <System>displaced_Au__a</System>
+    <Results>
+      <PropertyValue property="VASP energy" type="float" units="eV">-102.336917</PropertyValue>
+      <PropertyValue property="Fermi energy" type="float" units="eV">5.297100</PropertyValue>
+      <PropertyValue dimensions="3 32" property="atomic derivatives" type="float" units="kJ/mol/m">150772895.184 -233639541.790 0.000
+1937723799.925 2381510406.962 0.000
+1937723887.258 43.666 -2381510406.962
+150772886.616 233639541.790 0.000
+-1103914693.451 4090737.425 -4090737.350
+101917799.120 0.000 0.000
+151357277.743 229431926.230 0.000
+1937723799.925 -43.666 2381510406.962
+1937723887.258 -2381510406.962 0.000
+150772886.616 -4.284 233639541.790
+-1103914693.601 4090737.275 4090737.350
+-13545717026.169 0.000 0.000
+-1103914693.301 -4090737.275 -4090737.350
+-451968038.070 0.000 0.000
+2080198428.914 -2581489024.272 0.000
+2080198334.248 -47.333 2581489024.272
+151357286.157 -229431926.230 0.000
+275248184.550 -701269.273 701269.260
+-689698317.210 0.000 0.000
+150772895.184 4.284 -233639541.790
+-1103914693.451 -4090737.425 4090737.350
+101917799.120 0.000 0.000
+2080198428.914 47.333 -2581489024.272
+2080198334.248 2581489024.272 0.000
+151357286.157 4.207 -229431926.230
+275248184.576 -701269.247 -701269.260
+1040683581.841 0.000 0.000
+275248184.524 701269.247 701269.260
+167720231.350 0.000 0.000
+151357277.743 -4.207 229431926.230
+275248184.550 701269.273 -701269.260
+-689698317.210 0.000 0.000</PropertyValue>
+      <PropertyValue property="cell volume" type="float" units="Ang^3">562.580</PropertyValue>
+      <PropertyValue property="pressure" type="float" units="GPa">3.201</PropertyValue>
+      <PropertyValue dimensions="6" property="stress" type="float" units="GPa">-3.20200 -3.20100 -3.20100 0.00000 0.00000 0.00000</PropertyValue>
+      <PropertyValue property="energy of formation" type="float" units="kJ/mol">7.1090</PropertyValue>
+      <PropertyValue property="heat of formation" type="float" units="kJ/mol">40.9989</PropertyValue>
+    </Results>
+  </Calculation>
+  <System id="displaced_Au__b">
+    <Date>29 Aug 2016 09:42:30 GMT</Date>
+    <Characterization>
+      <PropertyValue property="symmetry" type="text" units="">P1</PropertyValue>
+      <PropertyValue property="setting" type="text" units="">P1</PropertyValue>
+      <PropertyValue property="empirical formula" type="text" units="">Au</PropertyValue>
+      <PropertyValue property="primitive cell formula" type="text" units="">Au32</PropertyValue>
+      <PropertyValue property="primitive Z" type="text" units="">32</PropertyValue>
+    </Characterization>
+  </System>
+  <Calculation id="displaced_Au__b">
+    <Date>29 Aug 2016 09:42:30 GMT</Date>
+    <System>displaced_Au__b</System>
+    <Results>
+      <PropertyValue property="VASP energy" type="float" units="eV">-102.336917</PropertyValue>
+      <PropertyValue property="Fermi energy" type="float" units="eV">5.297100</PropertyValue>
+      <PropertyValue dimensions="3 32" property="atomic derivatives" type="float" units="kJ/mol/m">-151357286.161 229665682.650 0.000
+-2079380186.785 -2581138389.642 0.000
+-2079380281.438 -47.327 2581138389.642
+-151357277.739 -229665682.650 0.000
+1103680937.031 4558250.274 -4558250.190
+-102034677.330 0.000 0.000
+-150656008.413 -233288907.160 0.000
+-2079380186.785 47.327 -2581138389.642
+-2079380281.438 2581138389.642 0.000
+-151357277.739 4.211 -229665682.650
+1103680936.864 4558250.106 4558250.190
+13543963853.019 0.000 0.000
+1103680937.198 -4558250.106 -4558250.190
+451968038.070 0.000 0.000
+-1937957643.660 2380575381.282 0.000
+-1937957556.362 43.649 -2380575381.282
+-150656016.968 233288907.160 0.000
+-275131306.340 -116878.212 116878.210
+689581439.000 0.000 0.000
+-151357286.161 -4.211 229665682.650
+1103680937.031 -4558250.274 4558250.190
+-102034677.330 0.000 0.000
+-1937957643.660 -43.649 2380575381.282
+-1937957556.362 -2380575381.282 0.000
+-150656016.968 -4.277 233288907.160
+-275131306.336 -116878.208 -116878.210
+-1039865434.371 0.000 0.000
+-275131306.344 116878.208 116878.210
+-167603353.140 0.000 0.000
+-150656008.413 4.277 -233288907.160
+-275131306.340 116878.212 -116878.210
+689581439.000 0.000 0.000</PropertyValue>
+      <PropertyValue property="cell volume" type="float" units="Ang^3">562.580</PropertyValue>
+      <PropertyValue property="pressure" type="float" units="GPa">3.202</PropertyValue>
+      <PropertyValue dimensions="6" property="stress" type="float" units="GPa">-3.20200 -3.20100 -3.20100 0.00000 0.00000 0.00000</PropertyValue>
+      <PropertyValue property="energy of formation" type="float" units="kJ/mol">7.1090</PropertyValue>
+      <PropertyValue property="heat of formation" type="float" units="kJ/mol">41.0095</PropertyValue>
+      <PropertyValue property="zero-point energy" type="float" units="kJ/mol">1.5103</PropertyValue>
+      <PropertyValue property="E(0)" type="float" units="kJ/mol">8.6158</PropertyValue>
+      <PropertyValue property="E(PV)" type="float" units="kJ/mol">33.9217</PropertyValue>
+      <PropertyValue property="Eelec" type="float" units="kJ/mol">7.1055</PropertyValue>
+      <PropertyValue property="Temperatures" type="float" units="K">0.001 1 2 3 4 5 10 15 20 30 40 50 60 70 80 90 100 125 150 175 200 225 250 273 275 298 300 350 400 450 500 550 600 650 700 750 800 850 900 950 1e+003 1.05e+003 1.1e+003 1.15e+003 1.2e+003 1.25e+003 1.3e+003 1.35e+003 1.4e+003 1.45e+003 1.5e+003 1.55e+003 1.6e+003 1.65e+003 1.7e+003 1.75e+003 1.8e+003 1.85e+003 1.9e+003 1.95e+003 2e+003 2.1e+003 2.2e+003 2.3e+003 2.4e+003 2.5e+003 2.6e+003 2.7e+003 2.8e+003 2.9e+003 3e+003</PropertyValue>
+      <PropertyValue property="S(T)" type="float" units="J/K/mol">0.0000 0.0000 0.0012 0.0051 0.0120 0.0220 0.1552 0.5913 1.4357 4.0137 7.1237 10.3067 13.3648 16.2280 18.8825 21.3371 23.6090 28.6102 32.8413 36.4920 39.6951 42.5449 45.1096 47.2611 47.4399 49.4100 49.5743 53.3691 56.6671 59.5826 62.1946 64.5600 66.7213 68.7108 70.5537 72.2702 73.8763 75.3854 76.8086 78.1550 79.4326 80.6480 81.8070 82.9146 83.9751 84.9924 85.9699 86.9106 87.8170 88.6917 89.5368 90.3543 91.1458 91.9129 92.6572 93.3800 94.0823 94.7654 95.4304 96.0781 96.7093 97.9260 99.0860 100.1944 101.2558 102.2738 103.2519 104.1931 105.1001 105.9753 106.8208</PropertyValue>
+      <PropertyValue property="Cv(T)" type="float" units="kJ/mol">0.0000 0.0002 0.0050 0.0161 0.0335 0.0587 0.4948 1.9280 4.1235 8.8533 12.7826 15.6979 17.7966 19.3098 20.4166 21.2412 21.8677 22.8944 23.4882 23.8595 24.1061 24.2778 24.4019 24.4879 24.4944 24.5602 24.5652 24.6647 24.7296 24.7742 24.8063 24.8300 24.8481 24.8622 24.8734 24.8825 24.8899 24.8960 24.9012 24.9055 24.9092 24.9124 24.9152 24.9176 24.9198 24.9216 24.9233 24.9248 24.9261 24.9273 24.9284 24.9294 24.9302 24.9310 24.9318 24.9325 24.9331 24.9336 24.9342 24.9346 24.9351 24.9359 24.9366 24.9372 24.9377 24.9382 24.9386 24.9390 24.9393 24.9396 24.9399</PropertyValue>
+      <PropertyValue property="H(T)-Eelec" type="float" units="kJ/mol">35.4320 35.4320 35.4320 35.4320 35.4320 35.4321 35.4332 35.4388 35.4537 35.5189 35.6279 35.7711 35.9392 36.1251 36.3240 36.5325 36.7482 37.3090 37.8894 38.4815 39.0813 39.6862 40.2948 40.8571 40.9061 41.4702 41.5193 42.7503 43.9852 45.2229 46.4624 47.7033 48.9453 50.1881 51.4315 52.6754 53.9197 55.1643 56.4092 57.6544 58.8998 60.1453 61.3910 62.6368 63.8827 65.1288 66.3749 67.6211 68.8673 70.1137 71.3601 72.6065 73.8530 75.0995 76.3461 77.5927 78.8393 80.0860 81.3326 82.5794 83.8261 86.3196 88.8132 91.3069 93.8006 96.2944 98.7883 101.2821 103.7760 106.2700 108.7639</PropertyValue>
+      <PropertyValue property="E(T)-Eelec" type="float" units="">1.5103 1.5103 1.5103 1.5103 1.5103 1.5104 1.5115 1.5171 1.5320 1.5972 1.7063 1.8494 2.0175 2.2034 2.4023 2.6108 2.8265 3.3873 3.9677 4.5599 5.1596 5.7645 6.3731 6.9354 6.9844 7.5485 7.5976 8.8286 10.0635 11.3012 12.5407 13.7817 15.0236 16.2664 17.5098 18.7537 19.9980 21.2426 22.4876 23.7327 24.9781 26.2236 27.4693 28.7151 29.9611 31.2071 32.4532 33.6994 34.9457 36.1920 37.4384 38.6848 39.9313 41.1778 42.4244 43.6710 44.9176 46.1643 47.4110 48.6577 49.9044 52.3979 54.8916 57.3852 59.8790 62.3727 64.8666 67.3604 69.8543 72.3483 74.8422</PropertyValue>
+    </Results>
+  </Calculation>
+</MDRESULTS>

@@ -13,6 +13,7 @@ class MomentMethod
     ###plotのために必要な変数
     @@data_temp=[]
     @@data_energy=[]
+    @@data_lattice=[]
     ###
     puts "Hi,moment"
     @structure=structure
@@ -101,6 +102,7 @@ class MomentMethod
       psi_nonli_ev = ev_from_erg(psi_nonli)
       psi = u0_ev + psi0_ev + psi_nonli_ev
       @@data_energy << psi
+      @@data_lattice <<a1_cal
       puts "u0_ev, psi0_ev, psi_nonli_ev, psi, large_a"
       check(u0_ev, psi0_ev, psi_nonli_ev, psi, large_a)
       puts "\n"
@@ -295,9 +297,17 @@ class DataPlot < MomentMethod
       plot_energy
     when "medea"
       plot_medea
+    when "lattice"
+      plot_lattice
     end
   end
   def plot_energy#free energy and temperature
+    #maple用にデータ出力
+    p tmp =@@data_temp.zip(@@data_energy)#要素の結合
+    tmp.each do |d1,d2|
+      puts d1.to_s+" "+d2.to_s
+    end
+
     Gnuplot.open do |gp|
       Gnuplot::Plot.new( gp ) do |plot|
         plot.set "term aqua size 500, 400"
@@ -328,11 +338,16 @@ class DataPlot < MomentMethod
       file.each_line do |data|
         # labmenには読み込んだ行が含まれる
         @@data_medea_temp << data.split(" ")[0]
-        @@data_medea_energy << data.split(" ")[6].to_f*1.036e-2#kJ/molからeV/atomに変換
+        @@data_medea_energy << data.split(" ")[6].to_f*1.0365e-2#kJ/molからeV/atomに変換
       end
     end
+#maple用にデータ出力
     p @@data_medea_energy
     p @@data_medea_temp
+    p tmp =@@data_medea_temp.zip(@@data_medea_energy)#要素の結合
+    tmp.each do |d1,d2|
+      puts d1.to_s+" "+d2.to_s
+    end
 
     Gnuplot.open do |gp|
       Gnuplot::Plot.new( gp ) do |plot|
@@ -354,6 +369,12 @@ class DataPlot < MomentMethod
         end
 
       end
+    end
+  end
+  def plot_lattice
+    p tmp =@@data_temp.zip(@@data_lattice)#要素の結合
+    tmp.each do |d1,d2|
+      puts d1.to_s+" "+d2.to_s
     end
   end
 end

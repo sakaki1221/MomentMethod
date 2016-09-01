@@ -1,0 +1,78 @@
+job.id 2611
+job.name {(Cu)4  (Fm-3m) Cu1.2(Phonon)}
+job.description {
+}
+job.status pending
+job.submitted {2016-08-29 18:17:24.903}
+job.started {}
+job.finished {}
+job.queue 3
+job.errormsg {}
+job.pid 0
+job.userid 3
+job.priority 5
+job.jobserverid 2
+data.joboptions {_protocol_type_ JobControl _description_ {} passwd {} _name_ {} nproc 4 priority 5 _protocol_id_ 0 _protocol_pid_ 0 _version_ 1.1 context {} user nishitani}
+data.script set\ MedeADb\ \"DRIVER=\{SQL\ Server\}\;SERVER=(local)\\MaterialsDesign\;DATABASE=MedeA\;READONLY=0\"\n#\n#\ Basic\ script\ for\ running\ Phonon\ calculations\n#\n\npackage\ require\ database\npackage\ require\ MD.Results\npackage\ require\ Phonon\npackage\ require\ Options\npackage\ require\ system\n\n\nproc\ task\ \{args\}\ \{\}\nnamespace\ eval\ ::MD\ \{\}\n\nputs\ \"Opening\ the\ database\"\n\n#\n#\ Hmmm.\ An\ issue\ with\ SQL\ Server\ and\ MySql\ databases\ here\n#\ Need\ to\ try\ both!\n#\n\nopenMedeADb\ \$MedeADb\n\n#\ Drop\ the\ priority\n#\ if\ \{\[catch\ \{\n#\ \ \ \ \ package\ require\ WinUtil\n#\ \ \ \ \ ::WinUtil::priority\ low\n#\ \}\ msg\]\}\ \{\n#\ \ \ \ \ puts\ \"Unable\ to\ lower\ priority:\ \$msg\"\n#\ \}\n\nset\ tmp\ \[join\ \[lindex\ \[db\ \"SELECT\ value\ FROM\ data\ WHERE\ job\ =\ \$::job::id\ AND\ item\ =\ 'phononoptions'\"\]\ 0\]\]\n::Phonon::Options\ phononoptions\neval\ phononoptions\ update\ \$tmp\n\nset\ tmp\ \[join\ \[lindex\ \[db\ \"SELECT\ value\ FROM\ data\ WHERE\ job\ =\ \$::job::id\ AND\ item\ =\ 'system'\"\]\ 0\]\]\nSystem\ system\ -data\ \$tmp\n\nset\ action\ \[phononoptions\ get\ action\]\n\nswitch\ \$action\ \{\n\n\ \ \ \ \{Write\ input\ files\ for\ supercell\ calculations\}\ \{\n\n\tnew\ Phonon::Batch\ Phonon\ -system\ system\ -options\ phononoptions\n\t\$Phonon\ createPhononFiles\n\n\ \ \ \ \}\n\n\ \ \ \ \{Recalculate\ dispersion\ and\ density\ of\ states\}\ \{\n\n\tnew\ Phonon::Batch\ Phonon\ -system\ system\ -options\ phononoptions\n\t\$Phonon\ recalculatePhonon\n\n\ \ \ \ \}\n\n\ \ \ \ \{Run\ all\}\ \{\n\tpackage\ require\ Simulation\n\tset\ tmp\ \[join\ \[lindex\ \[db\ \"SELECT\ value\ FROM\ data\ WHERE\ job\ =\ \$::job::id\ AND\ item\ =\ 'simulationoptions'\"\]\ 0\]\]\n\tSimulation::Options\ simulationoptions\n\teval\ simulationoptions\ update\ \$tmp\n\n\tset\ engine\ \[phononoptions\ get\ engine\]\n\tswitch\ \$engine\ \{\n\t\ \ \ \ VASP53\ \ \{\n\t\tpackage\ require\ VASP53Batch\n\t\tset\ tmp\ \[join\ \[lindex\ \[db\ \"SELECT\ value\ FROM\ data\ WHERE\ job\ =\ \$::job::id\ AND\ item\ =\ 'vaspoptions'\"\]\ 0\]\]\n\t\t::VASP53::Options\ vaspoptions\n\t\teval\ vaspoptions\ update\ \$tmp\n\n\t\t::MD::Results::Handler\ Results\ -file\ Job.xml\n\n\t\tnew\ VASP53::Batch\ VASP\ -options\ vaspoptions\ -system\ system\ -simulationoptions\ \\\n\t\t\ \ \ \ simulationoptions\ -phononoptions\ phononoptions\ -results\ Results\n\t\t\$VASP\ runPhonon\n\n\t\tResults\ save\n\t\ \ \ \ \}\n\n\t\ \ \ \ VASP52\ \ \{\n\t\tpackage\ require\ VASP52Batch\n\t\tset\ tmp\ \[join\ \[lindex\ \[db\ \"SELECT\ value\ FROM\ data\ WHERE\ job\ =\ \$::job::id\ AND\ item\ =\ 'vaspoptions'\"\]\ 0\]\]\n\t\t::VASP52::Options\ vaspoptions\n\t\teval\ vaspoptions\ update\ \$tmp\n\n\t\t::MD::Results::Handler\ Results\ -file\ Job.xml\n\n\t\tnew\ VASP52::Batch\ VASP\ -options\ vaspoptions\ -system\ system\ -simulationoptions\ \\\n\t\t\ \ \ \ simulationoptions\ -phononoptions\ phononoptions\ -results\ Results\n\t\t\$VASP\ runPhonon\n\n\t\tResults\ save\n\t\ \ \ \ \}\n\n\t\ \ \ \ VASP46\ \ \{\n\t\tpackage\ require\ VAMPBatch\n\t\tset\ tmp\ \[join\ \[lindex\ \[db\ \"SELECT\ value\ FROM\ data\ WHERE\ job\ =\ \$::job::id\ AND\ item\ =\ 'vaspoptions'\"\]\ 0\]\]\n\t\t::VAMP::Options\ vaspoptions\n\t\teval\ vaspoptions\ update\ \$tmp\n\n\t\t::MD::Results::Handler\ Results\ -file\ Job.xml\n\n\t\tnew\ VAMP::Batch\ VASP\ -options\ vaspoptions\ -system\ system\ -simulationoptions\ \\\n\t\t\ \ \ \ simulationoptions\ -phononoptions\ phononoptions\ -results\ Results\n\t\t\$VASP\ runPhonon\n\n\t\tResults\ save\n\t\ \ \ \ \}\n\n\t\ \ \ \ VASP44\ \ \{\n\t\tpackage\ require\ VASPBatch\n\t\tset\ tmp\ \[join\ \[lindex\ \[db\ \"SELECT\ value\ FROM\ data\ WHERE\ job\ =\ \$::job::id\ AND\ item\ =\ 'vaspoptions'\"\]\ 0\]\]\n\t\t::VASP::Options\ vaspoptions\n\t\teval\ vaspoptions\ update\ \$tmp\n\t\tnew\ VASP::Batch\ VASP\ -options\ vaspoptions\ -system\ system\ -simulationoptions\ simulationoptions\ -phononoptions\ phononoptions\n\t\t\$VASP\ runPhonon\n\t\ \ \ \ \}\n\n\t\}\n\n\ \ \ \ \}\n\n\ \ \ \ default\ \{\n\terror\ \"Cannot\ handle\ the\ Action:\ \$action!\"\n\ \ \ \ \}\n\n\}\n\t\n
+data.phononoptions {BandStructure/_description_ {} BandStructure/_name_ {} BandStructure/_protocol_id_ 0 BandStructure/_protocol_pid_ 0 BandStructure/_protocol_type_ BandStructure BandStructure/_version_ 2.1 BandStructure/explicitpath 0 BandStructure/labels {} BandStructure/maxpoints 100 BandStructure/module VASP BandStructure/npertask 40 BandStructure/npoints {} BandStructure/symmetrypoints {} BandStructure/vertices {} _description_ {} _name_ {} _protocol_id_ 0 _protocol_pid_ 0 _protocol_type_ Phonon _version_ 1.0 aa {} ab {} ac {} action {Run all} ba {} bandstructure 1 bb {} bc {} ca {} calculation {Full Brillouin zone} cb {} cc {} charges {} conventional_primitive {conventional cell} custom_aa 1 custom_ab 0 custom_ac 0 custom_ba 0 custom_bb 1 custom_bc 0 custom_ca 0 custom_cb 0 custom_cc 1 description {} displacement 0.02 dos 1 dosmesh Medium emax {} emin {} engine VASP46 epsilon 1.0 fieldrange 10.0 format VASP hexagonal_rhombohedral {rhombohedral cell} hexagonal_rhombohedral_shape {hexagonal shape} hydrogen_isotopes {Defined by model} intensities 1 invar_beta 0.1 invar_rot 0 invar_trans 0 isym {} kdirection_x 0 kdirection_y 0 kdirection_z 1 lotosplit {No approximation to LO/TO splitting} maxbandpoints 40 ncharges {} nedos {} neutrality 1 nkpoints {} nuinterval {} nwrite 2 power 1.0 precsym 1.0E-05 range_dir 30.0 range_full 10.0 relax 1 restart {} selective_freezing 1 signs 1 summary {(Cu)4  (Fm-3m) Cu1.2(Phonon)} use_wavecars 1 visualize 1}
+data.vaspoptions {ActualKMesh {6 6 6} ActualKSpacings {0.494 0.494 0.494} BandStructure/_description_ {} BandStructure/_name_ {} BandStructure/_protocol_id_ 0 BandStructure/_protocol_pid_ 0 BandStructure/_protocol_type_ BandStructure BandStructure/_version_ 2.1 BandStructure/explicitpath 0 BandStructure/labels {} BandStructure/maxpoints 40 BandStructure/module VASP BandStructure/npertask 40 BandStructure/npoints {} BandStructure/symmetrypoints {} BandStructure/vertices {} Gshift 0 NEBinVASP 0 _description_ {} _name_ {} _protocol_id_ 0 _protocol_pid_ 0 _protocol_type_ VASP _version_ 2.4 addgrid 0 algo {Normal (blocked Davidson)} apaco {} bandstructure 0 default_encut {} delayeach 0 description {} dos 0 dos_Gshift 0 dos_ismear {Tetrahedron method} dos_kInputmode {set spacing between k-points} dos_kSpacing 0.3 dos_mporder 1 dos_nkodd 1 dos_nkx 9 dos_nky 9 dos_nkz 9 dos_sigma 0.2 ediff 1.0e-05 ediffg -0.02 emax {} emin {} enaug {} encut {} explicitKPoints 0 extrainput {} fixcharg 0 ibrion -1 icharg {Atomic charge densities} images 3 increase_encut 0 iniwav {Random numbers} isif {} ismear Methfessel-Paxton ispin 0 istart 0 isym {} iwave {from scratch} j_parameter {} kInputmode {set spacing between k-points} kSpacing 0.5 kblock {} kpoints {} l_parameter {} lcharg 0 ldapu {Standard LDA or GGA} lelf 0 lreal {Reciprocal space} lvtot 0 lwave 0 magmom 1 magnetism {Defined by model} maxbandpoints 40 mporder 1 napaco {} nbands {} nblk {} nblock 1 nedos {} nelm 60 nelmdl {} nelmin 2 ngx {} ngxf {} ngy {} ngyf {} ngz {} ngzf {} nkodd 0 nkx 4 nky 4 nkz 4 nsw 0 nuj {} nwrite 2 potentials {PBE PAW {29 Cu}} potim {} prec Normal precision Normal precsym 1.0E-05 pressure 0 restart_chg {} restart_type {constant energy cutoff} restart_wave {} restart_wave_prefix {} sigma 0.2 smass {} spinaxis_x {} spinaxis_y {} spinaxis_z {} spininterpol Vosko-Wilk-Nusair spring -5 summary {} tebeg {} teend {} u-j_parameter {} u_parameter {} voskown {} weights {} workfunction 0}
+data.simulationoptions {_description_ {} _name_ {} _protocol_id_ 0 _protocol_pid_ 0 _protocol_type_ Simulation _version_ 2.0 a 1 alpha 1 averagefrequency 40.0 b 1 beta 1 c 1 calculation {Structure Optimization} convergence 0.02 eachstep 0 econvergence 1.0e-03 endtemperature {} ensemble {micro canonical (nVE)} gamma 1 mintrjfile trajectory.data mintrjfrequency 1 nosemass {} nsteps 100 paircorrdistance 16.0 paircorrslots 256 relaxalgo {Conjugate Gradient} relaxatompos 0 relaxatoms 1 relaxcell 0 relaxvolume 0 restart_md {} strain 0.01 strains 0.005 temperature 298.0 time 120.0 timestep 4.0 trjfile trajectory.data trjfrequency 1 version 5.2 yinatoms {} yinyang 0}
+data.system {@Title Untitled
+
+@Columns AsymmetricAtom
+	AtomicNumber	int	0
+	Connections	string	{{}}
+	Fractional	double	{{0.0 0.0 0.0}}
+	Name	string	{{}}
+	Site	int	1
+	WyckoffPosition	int	-1
+@end
+@data
+29 {} {0 0 0} Cu 1 1
+@end
+@Columns Cell
+	Constraints	string	{a b c A B G}
+	Origin	int	{{0 0 0}}
+	Parameters	double	{{10.0 10.0 10.0 90.0 90.0 90.0}}
+	PrimitiveData	double	{{{1.0 0.0 0.0} {0.0 1.0 0.0} {0.0 0.0 1.0}}}
+	RotationMatrix	double	{{{1.0 0.0 0.0} {0.0 1.0 0.0} {0.0 0.0 1.0}}}
+	SpaceGroup	string	P1
+	SpaceGroupNumber	int	1
+	ToCartesians	double	{{{10.0 0.0 0.0} {0.0 10.0 0.0} {0.0 0.0 10.0}}}
+	ToFractionals	double	{{{0.10000000000000001 0.0 0.0} {0.0 0.10000000000000001 0.0} {0.0 0.0 0.10000000000000001}}}
+@end
+@data
+{a b c A B G} {0 0 0} {3.67445796336 3.67445796336 3.67445796336 90 90 90} {{1 0 0} {0 1 0} {0 0 1}} {{1 0 0} {0 1 0} {0 0 1}} Fm-3m 225 {{3.67445796336 0 0} {6.73733856794e-008 3.67445796336 0} {6.73733856794e-008 6.73733844441e-008 3.67445796336}} {{0.272148983597 0 0} {-4.99001447751e-009 0.272148983597 0} {-4.99001438602e-009 -4.99001438602e-009 0.272148983597}}
+@end
+@Columns AsymmetricBond
+	Atom1	reference	AsymmetricAtom
+	Atom2	reference	AsymmetricAtom
+	Key	int	0
+	Order	int	0
+@end
+@data
+@end
+@Columns Bond
+	AsymmetricBond	reference	AsymmetricBond
+	Atom1	reference	Atom
+	Atom2	reference	Atom
+	CellOffset2	int	{{0 0 0}}
+	Key	int	0
+@end
+@data
+@end
+@Columns Subset
+	Criteria	string	{{}}
+	Dynamic	int	0
+	Length	int	1
+	Name	string	{{}}
+	Table	string	{{}}
+	Type	string	atom
+@end
+@data
+@end}
+job.status running
+job.started {2016-08-29 18:17:25}
+job.pid 1220
+job.status finished
+job.finished {2016-08-29 19:07:31}

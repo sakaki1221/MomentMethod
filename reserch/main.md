@@ -11,35 +11,23 @@ momentmethod sample_calc/jindo_Cu/ --plot energy
 ```sh
 momentmethod sample_calc/jindo_Cu/ --plot medea
 ```
+
 ![medea_Cu](./image/medea_Cu.png)
 ![medea_Ag](./image/medea_Ag.png)
 ![medea_Au](./image/medea_Au.png)
-## Installation
 
-Add this line to your application's Gemfile:
+## 単位変換
+kJ/mol = 6.242e21 / 6.022e23 eV = 1.0365e-2 eV
+## 比熱
+mapleでfittingを行い，温度の一次微分から比熱を計算する．
+maplefileはmaple/specific_heat.mw
 
-```ruby
-gem 'momentmethod'
+## 熱膨張
+### medeaの計算結果をmaple用に変換
+medea_result/CuAgAu_expansion/mkdate_expand.rb
+```sh
+ruby mkdata_expand.rb Ag Ag4maple
 ```
+Ag/Ag_***/Job.outを読み込んで，Ag4maple内に出力．
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install momentmethod
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/momentmethod.
+### 熱膨張計算結果
