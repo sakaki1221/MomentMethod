@@ -28,8 +28,8 @@ filenames.each do |dir|
   alldata << data
 end
 
-#データ４つ結合
-tmp = alldata[0].zip(alldata[1],alldata[2],alldata[3],alldata[4])
+#データ8つ結合とりあえず手で変更
+tmp = alldata[0].zip(alldata[1],alldata[2],alldata[3],alldata[4],alldata[5],alldata[6],alldata[7],alldata[8])
 tmp.each do |a|
   File.open("#{output_dir}/#{@element}_#{a[0][0]}.txt", "w") do |file|
     a.each do |b|

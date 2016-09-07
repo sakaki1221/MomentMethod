@@ -30,4 +30,8 @@ ruby mkdata_expand.rb Ag Ag4maple
 ```
 Ag/Ag_***/Job.outを読み込んで，Ag4maple内に出力．
 
+### 途中経過メモ
+1から1.04までだとfittingの点が足りないため1.08まで計算．
+1.04までのグラフはtmpに保存しとく．．
+
 ### 熱膨張計算結果

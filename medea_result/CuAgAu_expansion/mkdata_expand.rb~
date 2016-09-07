@@ -1,6 +1,6 @@
 #mapleでの熱膨張のプロットのためにJob.outからデータを生成する．
-p target_dir = ARGV[0]
-p output_dir = ARGV[1]
+target_dir = ARGV[0]
+output_dir = ARGV[1]
 filenames = Dir.glob("#{target_dir}/*_*")
 alldata = []
 filenames.each do |dir|
