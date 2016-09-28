@@ -49,17 +49,24 @@ $$
 
 自由エネルギー
 $$
-\psi_0 = \theta[x+\log{(1-e^{-2x})}]
+\varphi_0 = \theta[x+\log{(1-e^{-2x})}]
 $$
 
 $$
 \psi_{i0}(|a_i+u_i|)=\psi_{i0}(|a_i|)+
-\frac{1}{2}\left( \frac{\delta^2\psi_{io}}{\delta u_i^2} \right) u_i^2+
-\frac{1}{6}\left( \frac{\delta^3\psi_{io}}{\delta u_i^3} \right) u_i^3+
-\frac{1}{24}\left( \frac{\delta^4\psi_{io}}{\delta u_i^4} \right) u_i^4
+\frac{1}{2}\left( \frac{\delta^2\psi_{io}}{\delta u_i^2} \right) \left<u_i^2\right>+
+\frac{1}{24}\left( \frac{\delta^4\psi_{io}}{\delta u_i^4} \right) \left<u_i^4\right>
 $$
 
 原子間距離
 $$
 y_0^2 \approx \frac{2\gamma\theta^2}{3k^3}A
+$$
+
+ポテンシャル
+$$
+U(r)=\frac{D}{n-m}\left[m{\left(\frac{r_0}{r}\right)}^n-n{\left(\frac{r_0}{r}\right)}^m\right]
+$$
+$$
+n=9.0, m=5.5, D=4125.7, r_0=2.5487
 $$
