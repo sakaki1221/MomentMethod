@@ -48,10 +48,11 @@ class MomentMethod
     a0 = calc_a0(@@potential.m, @@potential.n, @@potential.r0)
     p "a0="
     check(a0)
-    for i in 1..10
+    for i in 0..10
       break if @@element=="Ag"&& i==9 #Agは800K以降計算できないから
       temp = 100*(i-1)
       temp = 10 if i==1
+      temp = 1 if i==0
       @@data_temp << temp
       theta = BOLTZ*temp
       gap = Array.new(6){ Array.new(201) }
