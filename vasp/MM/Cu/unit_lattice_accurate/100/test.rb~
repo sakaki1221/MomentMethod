@@ -1,0 +1,12 @@
+p -0.14880554E+02
+
+tmp_data=[]
+p File::open("OSZICAR") {|f|
+  f.each {|line| 
+      #もっといい方法ありそう
+      tmp_data << line.chomp.split(" ")
+  }
+}
+
+p tmp_data.last
+

@@ -1,0 +1,16 @@
+---
+:type: lj_jindo
+:element: Au
+:d0:   4683.0
+:n:   10.5
+:m:   5.50
+:r0:   2.8751
+:r0_no_angstrom: 2.8751e-8
+:alat:   4.0783
+:atom_mass:   196.96654/6.023e23
+:atom_mass_no_avogado: 196.96654
+:energy:  d0*((r/r0)**(-n)*m-(r/r0)**(-m)*n)/(m-n)
+:dedr:    -d0*m*n / ((n-m)*r) * ((r0/r)**n - (r0/r)**m)
+:de2dr2:  d0*m*n / ((n-m)*r**2) * ((n+1)*(r0/r)**n - (m+1)*(r0/r)**m)
+:de3dr3:  d0*m*n / ((n-m)*r**3) * ((m+1)*(m+2)*(r0/r)**m - (n+1)*(n+2)*(r0/r)**n)
+:de4dr4:  d0*m*n / ((n-m)*r**4) * ((n+1)*(n+2)*(n+3)*(r0/r)**n - (m+1)*(m+2)*(m+3)*(r0/r)**m)

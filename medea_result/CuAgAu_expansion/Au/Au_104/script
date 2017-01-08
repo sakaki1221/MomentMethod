@@ -23,7 +23,7 @@ set SaveWAVECAR 0
 	
 		package require JobServer
 		package require Translate
-	    	::JobServer::getFile 2621 "./WAVECAR.txt" WAVECAR.txt
+	    	::JobServer::getFile 2661 "./WAVECAR.txt" WAVECAR.txt
 
 		WAVECARtoBinary
 		catch {file delete -force WAVECAR.txt}

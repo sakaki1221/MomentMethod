@@ -19,7 +19,7 @@ class MomentMethod
     @structure=structure
     puts "structure = #{@structure}"
     select
-    @structure == "vasp" ? calc_moment_vasp : calc_moment
+    calc_moment
   end
 
   def check(*val)
@@ -46,6 +46,7 @@ class MomentMethod
   def calc_moment
     p "start calc_moment"
     a0 = calc_a0(@@potential.m, @@potential.n, @@potential.r0)
+    #a0 =2.50e-8
     p "a0="
     check(a0)
     for i in 0..10
@@ -54,6 +55,7 @@ class MomentMethod
       temp = 10 if i==1
       temp = 1 if i==0
       @@data_temp << temp
+      #p "theta"
       theta = BOLTZ*temp
       gap = Array.new(6){ Array.new(201) }
       aa1,aa2=[],[]
@@ -65,8 +67,11 @@ class MomentMethod
           aa1[change] = aa1[change-1] + gap[change][same]
           aa2[change] = aa1[change]*sqrt(2)
           a1, a2 = aa1[change], aa2[change]
+          #puts "a1, same, change"
+          #check(a1, same, change)
           k = calc_k(a1,a2,@structure)
           atom_mass = @@potential.atom_mass/AVOGADO
+          k/atom_mass
           omega = sqrt(k/atom_mass)
           x = HBAR*omega/(2.0*theta)
           gamma = calc_gamma(a1,a2,@structure)
@@ -108,71 +113,6 @@ class MomentMethod
       check(u0_ev, psi0_ev, psi_nonli_ev, psi, large_a)
       puts "\n"
     end
-  end
-
-  def calc_moment_vasp
-    p "calc_moment_vasp"
-    #それぞれの定数を再定義，もともとはergだがJにするために．
-    @boltz = 1.38064852e-23
-    @planck = 6.626e-34
-    @hbar = @planck/(2.0*PI)
-    @avogadro = 6.023e23
-
-    a0 = 2.5713342796904244e-10#vasp Cu
-    p "a0"
-    check(a0)
-    for i in 1..10
-      temp = 100*(i-1)
-      temp = 10 if i==1
-      theta = @boltz*temp
-      gap = Array.new(6){ Array.new(201) }
-      aa1,aa2=[],[]
-      aa1[0]=a0
-      comp_gap = 0
-      for change in 1..5 #width to displace
-        for same in 1..900
-          gap[change][same] = (same-1)*(10**(-(11+change))).to_f#start 1e-12
-          aa1[change] = aa1[change-1] + gap[change][same]
-          aa2[change] = aa1[change]*sqrt(2)
-          a1, a2 = aa1[change], aa2[change]
-          a1 = a1*1e10#angstromに
-          #p "k"
-          k = (192.3313091-69.33663132*a1+135.4613676*(a1-2.5713342796904244)**2+88.20445888*(a1-2.5713342796904244)**3)
-          k = k*1.60218e-19#evからJに変換
-          atom_mass = 63.5460/@avogadro
-          omega = sqrt(k/atom_mass)
-          x = @hbar*omega/(2.0*theta)
-          #p "gamma"
-          gamma = (-1089.896157+529.2267532*a1)/6
-          gamma = gamma*1.60218e-19#evからJに変換
-          gt_k2 = gamma*theta/k**2
-          ###################ここまでok
-          #u0 = calc_u0(a1,a2)
-          psi0 = calc_psi0(x,theta)
-          large_a = calc_large_a(x, gt_k2)
-          y0 = calc_y0(k, gamma, theta, large_a)
-          psi_linear = calc_psi_linear(k, x, gamma, theta)#とりあえず変数はそのままnonli
-          total_gap = comp_gap + gap[change][same]
-          break if y0 - total_gap < 0
-          a1 = a1*1e10
-        end
-        aa1[change] = aa1[change] - (10**(-(11+change))).to_f
-        aa2[change] = aa1[change]*sqrt(2)
-        comp_gap += gap[change][same-1]
-        a1_cal = a0+comp_gap
-        a2_cal = sqrt(2)*a1_cal
-      end
-      a1_cal = a1_cal*1.0e10
-      a2_cal = a2_cal*1.0e10
-      puts "T(K), a1, a2_cal(A), k, g="
-      check(temp, a1_cal, a2_cal, k, gamma)
-      puts "temp, u0, harmonic free, free="
-      check(temp, "u0", "psi0", "psi_nonli")
-      puts "\n"
-    end
-
-    p a1_cal
-
   end
 
   def calc_a0(m, n, r0)
@@ -283,6 +223,10 @@ class MomentMethod
 
   def ev_from_erg(a)
     return a*6.2415064e11
+  end
+
+  def ev_from_j(a)
+    return a*6.2415064e18
   end
 end
 

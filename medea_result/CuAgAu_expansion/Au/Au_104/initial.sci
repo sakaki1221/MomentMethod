@@ -1,6 +1,6 @@
 #MD System 2.0
 
-@Title Untitled_2
+@Title Untitled_1
 
 @Columns AsymmetricAtom
 	AtomicNumber	int	0

@@ -1,0 +1,17 @@
+p -0.14880554E+02
+
+for num in 0..14
+  p  95+num
+end
+
+dir=100
+tmp_data=[]
+p File::open("#{dir}/OSZICAR") {|f|
+  f.each {|line| 
+      #もっといい方法ありそう
+      tmp_data << line.chomp.split(" ")
+  }
+}
+
+p tmp_data.last[2].to_f
+
