@@ -1,0 +1,55 @@
+ running on    4 nodes
+ distr:  one band on    1 nodes,    4 groups
+ vasp.4.6.28 25Jul05 complex 
+ POSCAR found :  1 types and   32 ions
+
+ ----------------------------------------------------------------------------- 
+|                                                                             |
+|  ADVICE TO THIS USER RUNNING 'VASP/VAMP'   (HEAR YOUR MASTER'S VOICE ...):  |
+|                                                                             |
+|      You have a (more or less) 'large supercell' and for larger cells       |
+|      it might be more efficient to use real space projection operators      |
+|      So try LREAL= Auto  in the INCAR   file.                               |
+|      Mind: If you want to do an extremely accurate calculations keep the    |
+|      reciprocal projection scheme          (i.e. LREAL=.FALSE.)             |
+|                                                                             |
+ ----------------------------------------------------------------------------- 
+
+ LDA part: xc-table for Pade appr. of Perdew
+ found WAVECAR, reading the header
+  number of k-points has changed, file:  20 present:  40
+  trying to continue reading WAVECAR, but it might fail
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ...           1
+ reading WAVECAR
+ the WAVECAR file was read sucessfully
+ initial charge from wavefunction
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+RMM:   1    -0.915454267402E+02   -0.91545E+02   -0.59443E+02 17406   0.453E+01BRMIX: very serious problems
+ the old and the new charge density differ
+ old charge density:   344.41926 new  352.00000
+    0.738E+00
+RMM:   2    -0.899498573826E+02    0.15956E+01   -0.12635E+01 17765   0.119E+01    0.119E+00
+RMM:   3    -0.899470711183E+02    0.27863E-02   -0.15286E-01 18283   0.726E-01    0.647E-01
+RMM:   4    -0.899473349954E+02   -0.26388E-03   -0.32078E-02 18189   0.565E-01    0.190E-01
+RMM:   5    -0.899468080134E+02    0.52698E-03   -0.74575E-03 18187   0.305E-01    0.496E-02
+RMM:   6    -0.899467740470E+02    0.33966E-04   -0.85872E-05 18253   0.249E-02    0.303E-02
+RMM:   7    -0.899467499898E+02    0.24057E-04   -0.11828E-04 18256   0.358E-02    0.309E-03
+RMM:   8    -0.899467463422E+02    0.36476E-05   -0.42743E-06 10135   0.561E-03
+   1 F= -.89946746E+02 E0= -.89942712E+02  d E =-.121023E-01
+
+ ----------------------------------------------------------------------------- 
+|                                                                             |
+|           W    W    AA    RRRRR   N    N  II  N    N   GGGG   !!!           |
+|           W    W   A  A   R    R  NN   N  II  NN   N  G    G  !!!           |
+|           W    W  A    A  R    R  N N  N  II  N N  N  G       !!!           |
+|           W WW W  AAAAAA  RRRRR   N  N N  II  N  N N  G  GGG   !            |
+|           WW  WW  A    A  R   R   N   NN  II  N   NN  G    G                |
+|           W    W  A    A  R    R  N    N  II  N    N   GGGG   !!!           |
+|                                                                             |
+|      The partial DOS and the PROCAR file are not evaluated for NPAR/=1      |
+|      please rerun with NPAR=1                                               |
+|                                                                             |
+ ----------------------------------------------------------------------------- 
+

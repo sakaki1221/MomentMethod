@@ -14,6 +14,7 @@ class MomentMethod
     @@data_temp=[]
     @@data_energy=[]
     @@data_lattice=[]
+    @@data_large_a=[]
     ###
     puts "Hi,moment"
     @structure=structure
@@ -78,7 +79,7 @@ class MomentMethod
           gt_k2 = gamma*theta/k**2
           u0 = calc_u0(a1,a2)
           psi0 = calc_psi0(x,theta)
-          large_a = calc_large_a(x, gt_k2)
+          @@data_large_a << large_a = calc_large_a_maple(x, gt_k2)
           y0 = calc_y0(k, gamma, theta, large_a)
           case @structure
           when "fitting_test","vasp"
@@ -122,17 +123,8 @@ class MomentMethod
   end
 
   def calc_k(a1,a2,structure)
-    case structure
-    when "fitting_test"
-      k = (5.692097474e6-2.141523420e14*a1+5.413711083e22*(a1-2.512603723e-8)**2-2.352757090e30*(a1-2.512603723e-8)**3)
-    when "vasp"
-      #0番目のポテンシャルのみだから1/2倍しないでいい．とりあえずevからergに変換しとく
-      a1=a1*1e10
-      k = (192.3313091-69.33663132*a1+135.4613676*(a1-2.5713342796904244)**2+88.20445888*(a1-2.5713342796904244)**3)*1.60218e-12
-    else
     k = 2.0*@@potential.de2dr2(a1) + 4.0*@@potential.dedr(a1)/a1 + @@potential.de2dr2(a2) + 2.0*@@potential.dedr(a2)/a2;
     k =k*BOLTZ
-    end
     return k
   end
 
@@ -148,11 +140,6 @@ class MomentMethod
       diff_u4_a2 = 2.0*@@potential.de4dr4(a2) + 12.0*@@potential.de2dr2(a2)/(a2*a2) - 12.0*@@potential.dedr(a2)/(a2*a2*a2)
       diff_x2y2_a1 = @@potential.de4dr4(a1) + 2.0*@@potential.de3dr3(a1)/a1 + 3.0*@@potential.de2dr2(a1)/(a1*a1) - 3.0*@@potential.dedr(a1)/(a1*a1*a1)
       diff_x2y2_a2 = 4.0*@@potential.de3dr3(a2)/a2 - 6.0*@@potential.de2dr2(a2)/(a2*a2) + 6.0*@@potential.dedr(a2)/(a2*a2*a2)
-    when "fitting_test"
-      return (4.629669951e23-1.411654254e31*a1)/6.0
-    when "vasp"
-      a1=a1*1e10
-      return (-1089.896157+529.2267532*a1)/6.0*1.60218e-12
     else
       p "*******************missed structure**********************"
       exit(0)
@@ -175,9 +162,8 @@ class MomentMethod
     return psai0 = 3.0*theta*(x+log(arg0))
   end
 
-  def calc_large_a(x, gt_k2)
+  def calc_large_a(x, gt_k2)#Aの計算論文P515版
     xcothx = x/tanh(x)
-    xcothx = x*(exp(x)+exp(-x))/(exp(x)-exp(-x))
     xcothx2 = xcothx**2
     xcothx3 = xcothx**3
     xcothx4 = xcothx**4
@@ -186,6 +172,19 @@ class MomentMethod
     small_a2 = 13.0/3.0 + 47.0*xcothx/6.0 + 23.0*xcothx2/6.0 + xcothx3/2.0
     small_a3 = -(25.0/3.0 + 121.0*xcothx/6.0 + 50.0*xcothx2/3.0 + 16.0*xcothx3/3.0 + xcothx4/2.0)
     small_a4 = 43.0/3.0 + 93.0*xcothx/2.0 + 169.0*xcothx2/3.0 + 83.0*xcothx3/3.0 + 22.0*xcothx4/3.0 + xcothx5/2.0
+    return large_a = small_a1 + small_a2*gt_k2**2 + small_a3*gt_k2**3 + small_a4*gt_k2**4
+  end
+
+  def calc_large_a_maple(x, gt_k2)#Aの計算maple版
+    xcothx = x/tanh(x)
+    xcothx2 = xcothx**2
+    xcothx3 = xcothx**3
+    xcothx4 = xcothx**4
+    xcothx5 = xcothx**5
+    small_a1 = 1.0 + xcothx/2.0
+    small_a2 = 13.0/3.0 + 47.0*xcothx/6.0 + 23.0*xcothx2/6.0 + xcothx3/2.0
+    small_a3 = -(25.0/3.0 + 121.0*xcothx/6.0 + 50.0*xcothx2/3.0 + 16.0*xcothx3/3.0 + xcothx4/2.0)
+    small_a4 = (1.0/2.0)*xcothx5+7.0*xcothx4+(250.0/9.0)*xcothx3+46.0*xcothx2+(199.0/6.0)*xcothx+77.0/9.0
     return large_a = small_a1 + small_a2*gt_k2**2 + small_a3*gt_k2**3 + small_a4*gt_k2**4
   end
 

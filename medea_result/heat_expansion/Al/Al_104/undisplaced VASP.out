@@ -1,0 +1,54 @@
+ running on    4 nodes
+ distr:  one band on    1 nodes,    4 groups
+ vasp.4.6.28 25Jul05 complex 
+ POSCAR found :  1 types and   32 ions
+
+ ----------------------------------------------------------------------------- 
+|                                                                             |
+|  ADVICE TO THIS USER RUNNING 'VASP/VAMP'   (HEAR YOUR MASTER'S VOICE ...):  |
+|                                                                             |
+|      You have a (more or less) 'large supercell' and for larger cells       |
+|      it might be more efficient to use real space projection operators      |
+|      So try LREAL= Auto  in the INCAR   file.                               |
+|      Mind: If you want to do an extremely accurate calculations keep the    |
+|      reciprocal projection scheme          (i.e. LREAL=.FALSE.)             |
+|                                                                             |
+ ----------------------------------------------------------------------------- 
+
+ LDA part: xc-table for Pade appr. of Perdew
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ...           2
+ reading WAVECAR
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1     0.140541743127E+03    0.14054E+03   -0.36296E+04   544   0.126E+03
+DAV:   2    -0.105216649757E+03   -0.24576E+03   -0.22933E+03   636   0.146E+02
+DAV:   3    -0.119421380818E+03   -0.14205E+02   -0.13483E+02   688   0.282E+01
+DAV:   4    -0.119748278066E+03   -0.32690E+00   -0.32296E+00   648   0.436E+00
+DAV:   5    -0.119752715188E+03   -0.44371E-02   -0.44361E-02   632   0.595E-01    0.499E+00
+DAV:   6    -0.119363394835E+03    0.38932E+00   -0.65985E-02   648   0.841E-01    0.310E+00
+DAV:   7    -0.119081097625E+03    0.28230E+00   -0.19326E-01   564   0.135E+00    0.133E-01
+DAV:   8    -0.119081018675E+03    0.78950E-04   -0.13520E-03   648   0.143E-01    0.329E-02
+DAV:   9    -0.119081032151E+03   -0.13476E-04   -0.34474E-05   496   0.170E-02    0.295E-03
+DAV:  10    -0.119081025137E+03    0.70136E-05   -0.22675E-06   340   0.586E-03
+   1 F= -.11908103E+03 E0= -.11907290E+03  d E =-.119081E+03
+ curvature:   0.00 expect dE= 0.000E+00 dE for cont linesearch  0.000E+00
+ trial: gam= 0.00000 g(F)=  0.993E-60 g(S)=  0.000E+00 ort = 0.000E+00 (trialstep = 0.100E+01)
+ search vector abs. value=  0.100E-09
+ reached required accuracy - stopping structural energy minimisation
+ writing wavefunctions
+
+ ----------------------------------------------------------------------------- 
+|                                                                             |
+|           W    W    AA    RRRRR   N    N  II  N    N   GGGG   !!!           |
+|           W    W   A  A   R    R  NN   N  II  NN   N  G    G  !!!           |
+|           W    W  A    A  R    R  N N  N  II  N N  N  G       !!!           |
+|           W WW W  AAAAAA  RRRRR   N  N N  II  N  N N  G  GGG   !            |
+|           WW  WW  A    A  R   R   N   NN  II  N   NN  G    G                |
+|           W    W  A    A  R    R  N    N  II  N    N   GGGG   !!!           |
+|                                                                             |
+|      The partial DOS and the PROCAR file are not evaluated for NPAR/=1      |
+|      please rerun with NPAR=1                                               |
+|                                                                             |
+ ----------------------------------------------------------------------------- 
+

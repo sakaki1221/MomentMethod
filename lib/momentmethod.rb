@@ -8,10 +8,12 @@ require 'momentmethod/e0test'
 require 'momentmethod/testboltz_e8'
 require 'momentmethod/e10boltz'
 require 'momentmethod/fitting_test'
+require 'momentmethod/plotdata'
+require 'momentmethod/momentmethod_j'
 p ARGV
 @argv = ARGV
 #target_path = ARGV[0] #==nil ? './' : @argv[0]
-@opts = {calculation: :momentmethod, structure: "jindofcc", plot_type: "energy"}
+@opts = {calculation: :momentmethod, structure: "sakakifcc", plot_type: "energy"}
 
 command_parser = OptionParser.new do |opt|
   opt.on('-v', '--version','show program Version.') {
@@ -40,6 +42,12 @@ command_parser = OptionParser.new do |opt|
   opt.on('--fittingtest','test for vasp') {
     @opts[:calculation]=:fittingtest
   }
+  opt.on('--potj','test for vasp') {
+    @opts[:calculation]=:potj
+  }
+  opt.on('--plotdata','test for vasp') {
+    @opts[:calculation]=:plotdata
+  }
 end
 command_parser.parse!(@argv)
 $target_path = @argv[0]==nil ? './' : @argv[0]
@@ -50,6 +58,8 @@ when :momentmethod then
   #MomentPlot.new(@opts[:structure],1)
 when :plot then
   DataPlot.new(@opts[:plot_type],@opts[:structure])
+when :plotdata then
+  PlotData.new
 when :vasptest then
   VaspTest.new(@opts[:structure])
 when :e0test then
@@ -60,6 +70,8 @@ when :e10boltz then
   E10boltz.new(@opts[:structure])
 when :fittingtest then
   FittingTest.new(@opts[:structure])
+when :potj then
+  MomentMethodJ.new(@opts[:structure])
 end
 
 =begin

@@ -206,3 +206,82 @@ phonopy Alの精度比較
 
 bundle exec  exe/momentmethod --fittingtest
 vaspfittingの実行コマンド，includeを変える必要がある
+
+phonopy cu ag au計算
+/home/sakaki/phonopy/ 計算待ち
+
+計算おそすぎ
+all.q@asura1a                  BIP   0/8/8          8.00     linux-x64     
+   2764 0.50500 ag97       sakaki       r     01/08/2017 11:47:57     4        
+   2765 0.50500 ag98       sakaki       r     01/08/2017 11:48:18     4        
+---------------------------------------------------------------------------------
+all.q@asura1b                  BIP   0/8/8          8.00     linux-x64     
+   2761 0.50500 cu105      sakaki       r     01/08/2017 11:43:54     4        
+   2762 0.50500 ag95       sakaki       r     01/08/2017 11:47:24     4        
+-------------------------------------------------------------------------
+コピーして別ので回しておく
+SPOSCARで計算している　計算し直し
+
+Ag96まで計算まわして
+
+* Moment法
+  * 線形結合　熱膨張，自由エネルギー
+  * fcc構造
+    * k,gamma
+* 手法    
+  * 計算アルゴリズム
+  * ペアポテンシャルのパラメータ
+  * vasp fitting
+    * fittingの係数，精度
+  * phonopy,phonon-DOS法説明
+* 結果
+  * 熱膨張
+  * 自由エネルギー
+
+au97まで計算
+ag101エラー吐いてとまってたからバックアップとって計算投げなおし
+
+phonopyの計算結果をe-rにするスクリプト
+/Users/sakaki/Research/momentmethod/maple/data% ruby mk_er4phonopy.rb ~/vagrant/calc/Al/Al_ENCUT/TE/volume-temperature.dat
+
+Aumedeaは精度を上げたが良い値をとらなかったもっと精度を上げる必要がある．
+
+Cu103,Ag100とまってたag102,ag103
+
+au100投げてないau103も
+Cu103 計算精度下げて103_666て名前
+ag103　８コアでなげてテスト
+完了
+Cu95-97 101-2
+Ag95-98 101 104 105
+
+Cu103-666は8581秒で計算おわった
+
+sakaki@asura0:~/MM/Cu/unit_lattice_more
+で計算精度をさらにあげてテストCu100
+sakaki@asura0:~/MM/Cu/fullrelax_unit_accurateで計算精度あげて安定距離もテスト
+unit_lattice_moreでCuのポテンシャル精度高いの計算中
+Au-97投げなおし
+
+momentmethodにグラフのプロットを楽にするplotdata.rbをつくる．
+
+/Users/sakaki/Research/momentmethod/rubytestにPOTCARの読み込みのテストプログラムを置いとく
+
+# phonopy Au106-109まで計算したが，107-109は値がおかしい
+phononを確認すると負の値をとってる．．
+とりあえず105の精度をあげて計算し直してみる
+momentmethod_jにPOTをJにしたものを置いておく
+ポテンシャルJで長さ10^-10mの計算完成
+bundle exec exe/momentmethod sample_calc/jindo_Cu_J/ --potj
+
+Maple typeset("",K^2,"")で指数などグラフの軸に書くことができる．
+
+Au_105が再計算
+
+gamma これみて論文に書く
+testgamma1 = 4.0/3.0*@@potential.de4dr4(a1)+4.0*@@potential.de3dr3(a1)/a1+2.0*@@potential.de2dr2(a1)/(a1*a1)-2.0*@@potential.dedr(a1)/(a1*a1*a1)
+testgamma2= 1.0/3.0*@@potential.de4dr4(a2)+4.0*@@potential.de3dr3(a2)/a2-4.0*@@potential.de2dr2(a2)/(a2*a2)+4.0*@@potential.dedr(a2)/(a2*a2*a2)
+return gamma = testgamma1+testgamma2
+
+有効桁数を変更
+Digits:=20;

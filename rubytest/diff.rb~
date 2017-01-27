@@ -1,0 +1,23 @@
+p temp=[1,2,3,4,5,23]
+p energy=[10,52,110,20,20,80]
+
+
+temp.each_with_index{|x, i| 
+
+break if i==temp.count-1
+centerpoint=(temp[i+1]+x)/2.0
+diff=(energy[i+1]-energy[i])/(temp[i+1]-x)
+puts "#{centerpoint} #{diff}" 
+}
+
+def diff(x,y)
+x.each_with_index{|tmp, i|
+break if i==x.count-1
+centerpoint=(x[i+1]+tmp)/2.0
+diff=(y[i+1]-y[i])/(x[i+1]-tmp)
+    puts "#{centerpoint} #{diff}"
+  }
+
+end
+
+diff(temp, energy)

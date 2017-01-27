@@ -1,0 +1,63 @@
+ running on    4 nodes
+ distr:  one band on    1 nodes,    4 groups
+ vasp.4.6.28 25Jul05 complex 
+ POSCAR found :  1 types and   32 ions
+
+ ----------------------------------------------------------------------------- 
+|                                                                             |
+|  ADVICE TO THIS USER RUNNING 'VASP/VAMP'   (HEAR YOUR MASTER'S VOICE ...):  |
+|                                                                             |
+|      You have a (more or less) 'large supercell' and for larger cells       |
+|      it might be more efficient to use real space projection operators      |
+|      So try LREAL= Auto  in the INCAR   file.                               |
+|      Mind: If you want to do an extremely accurate calculations keep the    |
+|      reciprocal projection scheme          (i.e. LREAL=.FALSE.)             |
+|                                                                             |
+ ----------------------------------------------------------------------------- 
+
+ LDA part: xc-table for Pade appr. of Perdew
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ...           4
+ reading WAVECAR
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+RMM:   1     0.395969287414E+04    0.39597E+04   -0.15975E+05  4240   0.166E+03
+RMM:   2     0.870608409792E+03   -0.30891E+04   -0.34064E+04  4240   0.403E+02
+RMM:   3     0.215152740468E+03   -0.65546E+03   -0.70856E+03  4240   0.158E+02
+RMM:   4     0.462366921116E+01   -0.21053E+03   -0.15557E+03  4240   0.756E+01
+RMM:   5    -0.674100057550E+02   -0.72034E+02   -0.44364E+02  4240   0.470E+01
+RMM:   6    -0.852404887572E+02   -0.17830E+02   -0.12093E+02  4240   0.241E+01
+RMM:   7    -0.891338558309E+02   -0.38934E+01   -0.30612E+01  4240   0.140E+01
+RMM:   8    -0.899705578905E+02   -0.83670E+00   -0.77606E+00  4240   0.657E+00
+RMM:   9    -0.902487910560E+02   -0.27823E+00   -0.25999E+00  8479   0.360E+00
+RMM:  10    -0.902756299598E+02   -0.26839E-01   -0.25143E-01  8485   0.529E-01
+RMM:  11    -0.902767148783E+02   -0.10849E-02   -0.97447E-03  8269   0.258E-01
+RMM:  12    -0.902768293570E+02   -0.11448E-03   -0.11008E-03  7389   0.248E-02    0.126E+01
+RMM:  13    -0.854521783911E+02    0.48247E+01   -0.21466E+01  8480   0.146E+01    0.256E+00
+RMM:  14    -0.853983409969E+02    0.53837E-01   -0.32802E-01  8480   0.108E+00    0.150E+00
+RMM:  15    -0.853712609771E+02    0.27080E-01   -0.64258E-02  8480   0.108E+00    0.282E-01
+RMM:  16    -0.853710124285E+02    0.24855E-03   -0.28976E-02  8480   0.491E-01    0.169E-01
+RMM:  17    -0.853700913191E+02    0.92111E-03   -0.13525E-03  8480   0.124E-01    0.428E-02
+RMM:  18    -0.853700271986E+02    0.64121E-04   -0.25677E-04  8471   0.468E-02    0.311E-03
+RMM:  19    -0.853700237693E+02    0.34293E-05   -0.44912E-06  4427   0.359E-03
+   1 F= -.85370024E+02 E0= -.85366040E+02  d E =-.853700E+02
+ curvature:   0.00 expect dE= 0.000E+00 dE for cont linesearch  0.000E+00
+ trial: gam= 0.00000 g(F)=  0.994E-57 g(S)=  0.000E+00 ort = 0.000E+00 (trialstep = 0.100E+01)
+ search vector abs. value=  0.100E-09
+ reached required accuracy - stopping structural energy minimisation
+ writing wavefunctions
+
+ ----------------------------------------------------------------------------- 
+|                                                                             |
+|           W    W    AA    RRRRR   N    N  II  N    N   GGGG   !!!           |
+|           W    W   A  A   R    R  NN   N  II  NN   N  G    G  !!!           |
+|           W    W  A    A  R    R  N N  N  II  N N  N  G       !!!           |
+|           W WW W  AAAAAA  RRRRR   N  N N  II  N  N N  G  GGG   !            |
+|           WW  WW  A    A  R   R   N   NN  II  N   NN  G    G                |
+|           W    W  A    A  R    R  N    N  II  N    N   GGGG   !!!           |
+|                                                                             |
+|      The partial DOS and the PROCAR file are not evaluated for NPAR/=1      |
+|      please rerun with NPAR=1                                               |
+|                                                                             |
+ ----------------------------------------------------------------------------- 
+
