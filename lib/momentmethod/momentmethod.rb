@@ -181,7 +181,7 @@ class MomentMethod
     xcothx3 = xcothx**3
     xcothx4 = xcothx**4
     xcothx5 = xcothx**5
-    small_a1 = 1.0 + xcothx/2.0
+        small_a1 = 1.0 + xcothx/2.0
     small_a2 = 13.0/3.0 + 47.0*xcothx/6.0 + 23.0*xcothx2/6.0 + xcothx3/2.0
     small_a3 = -(25.0/3.0 + 121.0*xcothx/6.0 + 50.0*xcothx2/3.0 + 16.0*xcothx3/3.0 + xcothx4/2.0)
     small_a4 = (1.0/2.0)*xcothx5+7.0*xcothx4+(250.0/9.0)*xcothx3+46.0*xcothx2+(199.0/6.0)*xcothx+77.0/9.0
@@ -194,8 +194,6 @@ class MomentMethod
 
   def calc_psi_nonli(k, x, gamma,theta)
     fac_gam = @gamma1*@gamma1 + 2.0*@gamma1*@gamma2
-    @gamma1
-    @gamma2
     xcothx = x/tanh(x)
     #xcothx = x*(exp(x)+exp(-x))/(exp(x)-exp(-x))
     xcothx2 = xcothx**2
@@ -227,6 +225,16 @@ class MomentMethod
   def ev_from_j(a)
     return a*6.2415064e18
   end
+end
+
+def output_coeff_TE(x,y,lattice)#微分の値を出力，
+  latticeA=lattice*10**10
+  x.each_with_index{|tmp, i|
+    break if i==x.count-1
+    centerpoint=(x[i+1]+tmp)/2.0
+    diff=((y[i+1]-y[i]))/(x[i+1]-tmp).to_f
+    puts "#{centerpoint} #{diff*10**6/latticeA}"
+  }
 end
 
 class DataPlot < MomentMethod

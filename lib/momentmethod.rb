@@ -8,8 +8,8 @@ require 'momentmethod/e0test'
 require 'momentmethod/testboltz_e8'
 require 'momentmethod/e10boltz'
 require 'momentmethod/fitting_test'
-require 'momentmethod/plotdata'
 require 'momentmethod/momentmethod_j'
+require 'momentmethod/plotdata'
 p ARGV
 @argv = ARGV
 #target_path = ARGV[0] #==nil ? './' : @argv[0]

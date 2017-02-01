@@ -13,7 +13,6 @@ File::open(ARGV[0]) {|f|
       #もっといい方法ありそう                                                                              
   }
 }
-p tmp_data
 tmp_data.each{|data|
   puts "#{data[0]} #{data[1].to_f/mol*kJ2eV}" if data[0].to_f <1001
 }

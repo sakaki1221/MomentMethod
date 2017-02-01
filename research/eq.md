@@ -216,3 +216,17 @@ $$
 -\frac{6}{a_2^2}\frac{\delta^2 \varphi(a_2)}{\delta r^2}
 +\frac{6}{a_2^3}\frac{\delta \varphi(a_2)}{\delta r}
 $$
+
+$$
+\gamma=
+\frac{4}{3}\frac{\delta^4 \varphi(a_1)}{\delta r^4}
++\frac{4}{a_1}\frac{\delta^3 \varphi(a_1)}{\delta r^3}
++\frac{2}{a_1^2}\frac{\delta^2 \varphi(a_1)}{\delta r^2}
+-\frac{2}{a_1^3}\frac{\delta \varphi(a_1)}{\delta r}
+$$
+$$
+\frac{1}{3}\frac{\delta^4 \varphi(a_2)}{\delta r^4}
++\frac{4}{a_2}\frac{\delta^3 \varphi(a_2)}{\delta r^3}
+-\frac{4}{a_2^2}\frac{\delta^2 \varphi(a_2)}{\delta r^2}
++\frac{4}{a_2^3}\frac{\delta \varphi(a_2)}{\delta r}
+$$

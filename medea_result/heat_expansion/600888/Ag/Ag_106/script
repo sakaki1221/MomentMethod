@@ -1,0 +1,72 @@
+set SaveWAVECAR 0
+
+	    proc listFiles {} {
+		puts "\nFiles:"
+		foreach file [lsort [glob -nocomplain *]] {
+		    if {[catch {file mtime $file} T]} {
+			set T "--- -- --:--:--"
+		    } else {
+			set T [clock format $T -format "%b %d %T"]
+		    }
+		    puts [format "%15d %s %s" [file size $file] $T $file]
+		}
+		puts ""
+	    }
+	    proc saveFiles {dir} {
+		file mkdir $dir
+		foreach file {INCAR POSCAR POTCAR KPOINTS WAVECAR CHGCAR} {
+		    if {[file exists $file]} {
+			file copy -force $file Initial/
+		    }
+		}
+	    }
+	
+		package require JobServer
+		package require Translate
+	    	::JobServer::getFile 2728 "./WAVECAR.txt" WAVECAR.txt
+
+		WAVECARtoBinary
+		catch {file delete -force WAVECAR.txt}
+	    
+	    if {[catch {
+		listFiles
+		puts "Starting VASP at [clock format [clock seconds]]"
+		package require VASP 4.6
+
+		::VASP::execute -out VASP.out
+
+		after 100
+
+		file copy -force INCAR VASP_INCAR
+		file rename -force OUTCAR VASP_OUTCAR
+		file rename -force OSZICAR VASP_OSZICAR
+		file rename -force EIGENVAL VASP_EIGENVAL
+		file copy -force KPOINTS VASP_KPOINTS
+		file copy -force CONTCAR VASP_CONTCAR
+		file copy -force CONTCAR POSCAR
+
+		if {$SaveWAVECAR && [file exists WAVECAR] && [file size WAVECAR] > 0} {
+		    package require Translate
+		    WAVECARtoASCII WAVECAR VASP_WAVECAR.txt
+		}
+		catch {file delete -force WAVECAR}
+
+		puts "Finished VASP! [clock format [clock seconds]]"
+		listFiles
+	    } msg]} {
+		puts "Error executing VASP [clock format [clock seconds]]: $msg\n\n$::errorInfo"
+
+		catch {file copy -force INCAR VASP_INCAR}
+		catch {file rename -force OUTCAR VASP_OUTCAR}
+		catch {file rename -force OSZICAR VASP_OSZICAR}
+		catch {file rename -force EIGENVAL VASP_EIGENVAL}
+		catch {file copy -force KPOINTS VASP_KPOINTS}
+		catch {file copy -force CONTCAR VASP_CONTCAR}
+		
+		global errorInfo
+		puts ""
+		puts $errorInfo
+		listFiles
+		return
+	    }
+	
