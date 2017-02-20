@@ -181,10 +181,11 @@ class MomentMethod
     xcothx3 = xcothx**3
     xcothx4 = xcothx**4
     xcothx5 = xcothx**5
-        small_a1 = 1.0 + xcothx/2.0
-    small_a2 = 13.0/3.0 + 47.0*xcothx/6.0 + 23.0*xcothx2/6.0 + xcothx3/2.0
-    small_a3 = -(25.0/3.0 + 121.0*xcothx/6.0 + 50.0*xcothx2/3.0 + 16.0*xcothx3/3.0 + xcothx4/2.0)
-    small_a4 = (1.0/2.0)*xcothx5+7.0*xcothx4+(250.0/9.0)*xcothx3+46.0*xcothx2+(199.0/6.0)*xcothx+77.0/9.0
+    p "A"
+    p small_a1 = 1.0 + xcothx/2.0
+    p small_a2 = 13.0/3.0 + 47.0*xcothx/6.0 + 23.0*xcothx2/6.0 + xcothx3/2.0
+    p small_a3 = -(25.0/3.0 + 121.0*xcothx/6.0 + 50.0*xcothx2/3.0 + 16.0*xcothx3/3.0 + xcothx4/2.0)
+    p small_a4 = (1.0/2.0)*xcothx5+7.0*xcothx4+(250.0/9.0)*xcothx3+46.0*xcothx2+(199.0/6.0)*xcothx+77.0/9.0
     return large_a = small_a1 + small_a2*gt_k2**2 + small_a3*gt_k2**3 + small_a4*gt_k2**4
   end
 
