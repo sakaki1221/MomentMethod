@@ -1,21 +1,5 @@
 # MomentMethod
 githubのMarkDownは数式に対応していないため少し見ずらくなるかも．．．．
-##原文との違い
-Moment法の論文「Nguyen Tang, and Vu Van Hung, Phys. Stat. Sol., 149 (1988), 511.」
-と神藤さんのプログラムに使用されているポテンシャルは2原子のポテンシャルとなっています．
-これは原文p.33の「Note that this total force is decreased by one harf because we have taken into account the interaction between the i-th particles.」
-という文からもわかり，ここで2で割ることによって調整をおこなっています．
-修士論文ではポテンシャルを1原子あたりとして記述しているため，k,とgammaが原文と比較すると2倍されていますが，数値で見ると同じ値になります．
-
-##神藤さんのプログラムの単位
-元の神藤さんのプログラムの単位について記述しておきます．
-* LJ型ポテンシャルにはKelvin
-* 内部の計算にはerg
-  * 注意点として，計算の単位がergのため，ボルツマン定数，プランク定数は従来の数値より10^-7小さくなっている．
-
-修士論文ではポテンシャルをJに変換し内部の計算もJにしたものを使用している．
-最終的な値には変化はないのですが，VASPの導入の際に必要だったため実装しています．
-こちらは-potjコマンドで使用可能となってます．
 
 ## 使い方
 sample_calcの中にそれぞれのPOTCARが入っています．
@@ -32,6 +16,9 @@ VASPを導入したMoment法は
 momentvasp sample_calc/vasp_Cu/POTCAR.rb
 ```
 となっています．
+
+
+
 
 ## vaspの導入法
 VASPの計算結果からフィッティングを行い計算に利用します．
@@ -89,6 +76,23 @@ end
 * 原子量の単位は一般的なgです．実際の計算の中では1000で割りkgに変換して利用することになります．
 * mapleのfittingで得られる式はそのままコピー，ペーストし，^を**に一括変換することで利用できます．
 
+##原文との違い
+Moment法の論文「Nguyen Tang, and Vu Van Hung, Phys. Stat. Sol., 149 (1988), 511.」
+と神藤さんのプログラムに使用されているポテンシャルは2原子のポテンシャルとなっています．
+これは原文p.33の「Note that this total force is decreased by one harf because we have taken into account the interaction between the i-th particles.」
+という文からもわかり，ここで2で割ることによって調整をおこなっています．
+修士論文ではポテンシャルを1原子あたりとして記述しているため，k,とgammaが原文と比較すると2倍されていますが，数値で見ると同じ値になります．
+
+##神藤さんのプログラムの単位
+元の神藤さんのプログラムの単位について記述しておきます．
+* LJ型ポテンシャルにはKelvin
+* 内部の計算にはerg
+  * 注意点として，計算の単位がergのため，ボルツマン定数，プランク定数は従来の数値より10^-7小さくなっている．
+
+修士論文ではポテンシャルをJに変換し内部の計算もJにしたものを使用している．
+最終的な値には変化はないのですが，VASPの導入の際に必要だったため実装しています．
+こちらは-potjコマンドで使用可能となってます．
+
 ## プログラムについて
 ### 構造
 lib内の構造は次のようになる．
@@ -104,7 +108,7 @@ lib内の構造は次のようになる．
 │   ├── fitting_test.rb   元々のvaspを導入した計算プログラム．POTCARには対応しておらず，プログラムの中に各元素の情報が埋め込まれている．修士論文にはこちらを使用した．
 │   ├── momentmethod.rb   従来のmoment法計算．
 │   ├── momentmethod_j.rb 従来のmoment法計算，ポテンシャルJ，内部の計算Jバージョン．
-│   ├── plotdata.rb       修士論文データプロット用のプログラム．
+│   ├── plotdata.rb       修士論文の一部のデータプロット用のプログラム．
 │   └── version.rb
 ├── momentmethod.rb       momentmethod起動部．optperse使ってる．
 ├── momentvasp
@@ -113,11 +117,11 @@ lib内の構造は次のようになる．
 ```
 
 ### gammaの計算
-gammaの計算に使用している式が若干ですが元のプログラムと違います．
+gammaの計算に使用している式がmapleと元の神藤さんのプログラムで若干異なります．
 gammaの計算はlib/momentmethod/momentmethod.rb内のcalc_gamma関数で定義されており，
 神藤さんの元のgammaはstructure=jindofcc, Mapleで計算したものはsakakifccとなっています．
 
-修士論文ではsakakifccを使っています．
+修士論文ではmapleで計算した，sakakifccを使っています．
 またstructureの変更は次のように--structureコマンドでできます．
 ```
 momentmethod --structure jindofcc sample_calc/jindo_Cu/POTCAR
