@@ -3,7 +3,7 @@ require 'gnuplot'
 include Math
 
 class MomentMethod
-  #元の定数違う，多分間違い  BOLTZ = 1.380658e-16
+  #元の定数が若干間違っている．  BOLTZ = 1.380658e-16
   BOLTZ = 1.38064852e-16
   PLANCK = 6.626e-27
   HBAR = PLANCK/(2.0*PI)
@@ -69,8 +69,6 @@ class MomentMethod
           aa1[change] = aa1[change-1] + gap[change][same]
           aa2[change] = aa1[change]*sqrt(2)
           a1, a2 = aa1[change], aa2[change]
-          #puts "a1, same, change"
-          #check(a1, same, change)
           k = calc_k(a1,a2,@structure)
           atom_mass = @@potential.atom_mass/AVOGADO
           k/atom_mass
@@ -82,12 +80,7 @@ class MomentMethod
           psi0 = calc_psi0(x,theta)
           @@data_large_a << large_a = calc_large_a_maple(x, gt_k2)
           y0 = calc_y0(k, gamma, theta, large_a)
-          case @structure
-          when "fitting_test","vasp"
-            psi_nonli = calc_psi_linear(k, x, gamma, theta)#とりあえず変数はそのままnonli
-          else
-            psi_nonli = calc_psi_nonli(k, x, gamma,theta) #nonlinear fcc thesis(1988)p516(19)
-          end
+          psi_nonli = calc_psi_nonli(k, x, gamma,theta) #nonlinear fcc thesis(1988)p516(19)
           total_gap = comp_gap + gap[change][same]
           break if y0 - total_gap < 0
         end
@@ -228,7 +221,7 @@ class MomentMethod
   end
 end
 
-def output_coeff_TE(x,y,lattice)#微分の値を出力，
+def output_coeff_TE(x,y,lattice)#線膨張係数計算，微分をしている，
   latticeA=lattice*10**10
   x.each_with_index{|tmp, i|
     break if i==x.count-1
@@ -238,13 +231,41 @@ def output_coeff_TE(x,y,lattice)#微分の値を出力，
   }
 end
 
+#lj.rbにclassLJ_jindoがあるけど，後の切り分けのために新たに作成.理想はPOTCARの中
+class DiffLjJindo
+  attr_reader :m, :n, :r0, :atom_mass
+  def initialize(src)
+    @@d0,@@m,@@n,@@r0=src[:d0],src[:m],src[:n],src[:r0_no_angstrom]
+    @m, @n, @r0, @atom_mass=src[:m],src[:n], src[:r0_no_angstrom], src[:atom_mass_no_avogado]#計算のために参照できるようにしとく
+  end
+
+  def energy(r)
+    ene=-@@d0*((r/@@r0)**(-@@n)*@@m-(r/@@r0)**(-@@m)*@@n)/(@@m-@@n)
+  end
+
+  def dedr(r)
+    dedr=-@@d0*@@m*@@n / ((@@n-@@m)*r) * ((@@r0/r)**@@n - (@@r0/r)**@@m)
+  end
+
+  def de2dr2(r)
+    de2dr2 = @@d0*@@m*@@n / ((@@n-@@m)*r**2) * ((@@n+1)*(@@r0/r)**@@n - (@@m+1)*(@@r0/r)**@@m)
+  end
+
+  def de3dr3(r)
+    de3dr3 = @@d0*@@m*@@n / ((@@n-@@m)*r**3) * ((@@m+1)*(@@m+2)*(@@r0/r)**@@m - (@@n+1)*(@@n+2)*(@@r0/r)**@@n)
+  end
+
+  def de4dr4(r)
+    de4dr4 = @@d0*@@m*@@n / ((@@n-@@m)*r**4) * ((@@n+1)*(@@n+2)*(@@n+3)*(@@r0/r)**@@n - (@@m+1)*(@@m+2)*(@@m+3)*(@@r0/r)**@@m)
+  end
+end
+
+#ここからは昔データ収集に使ったもの，特に必要ない
 class DataPlot < MomentMethod
   def initialize(plot_type,structure)
     p plot_type
     p structure
     MomentMethod.new(structure)
-
-
     case plot_type
     when "energy"
       plot_energy
@@ -329,111 +350,5 @@ class DataPlot < MomentMethod
     tmp.each do |d1,d2|
       puts d1.to_s+" "+d2.to_s
     end
-  end
-end
-
-
-class MomentPlot < MomentMethod
-  def initialize(structure, range)
-    puts "Hi,MomentPlot"
-    @structure=structure
-    puts "structure = #{@structure}"
-    select
-    #2.5e-8から2.6e-8
-    min = 2.6e-8 - (1e-9)*range
-    max = 2.5e-8 + (1e-9)*range
-    stepno = (max - min)/50
-    moment_plot( min, max, stepno)
-  end
-
-  def moment_plot(min, max, stepno)
-    puts "start moment_check"
-    make_gp
-      #make k date ．ベタ書き
-    tmp=""
-    min.step(max, stepno) do |r|
-      tmp << r.to_s
-      tmp << " "
-      tmp << calc_k(r, r*sqrt(2), @structure).to_s
-      tmp << " "
-      tmp << (2.0*@@potential.de2dr2(r)*BOLTZ).to_s
-      tmp << " "
-      tmp << (4.0*@@potential.dedr(r)/r*BOLTZ).to_s
-      tmp << " "
-      tmp << (@@potential.de2dr2(r*sqrt(2))*BOLTZ).to_s
-      tmp << " "
-      tmp << (2.0*@@potential.dedr(r*sqrt(2))/(r*sqrt(2))*BOLTZ).to_s
-      tmp << "\n"
-    #  printf("%e %.10e\n", r, calc_k(r, r*sqrt(2)))
-      File.open("./k.txt",'w'){|io| io.print(tmp)}
-    end
-    #make gamma data
-    tmp=""
-    min.step(max, stepno) do |r|
-      tmp << r.to_s
-      tmp << " "
-      tmp << calc_gamma(r, r*sqrt(2), @structure).to_s
-      tmp << " "
-      tmp << (@gamma1*4).to_s
-      tmp << " "
-      tmp << (@gamma2*4).to_s
-      tmp << "\n"
-      #printf("%e %.10e\n", r, calc_k(r, r*sqrt(2)))
-      File.open("./gamma.txt",'w'){|io| io.print(tmp)}
-    end
-    system "gnuplot plot_k.gp"
-    system "gnuplot plot_gamma.gp"
-  end
-  def make_gp #gnuplot用，ベタ書き，それぞれのポテンシャルのフォルダの中に保存される．
-    File.open("./plot_k.gp",'w'){|io|
-      io.print("
-      set format x \"%.2e\"\n
-      set xlabel \"a1\"
-      set ylabel \"erg\"
-      plot \"./k.txt\" using 1:2 title \"k\" w lp\n
-      replot \"./k.txt\" using 1:3 title \"term 1,    2*de2dr2(a1)\" w lp\n
-      replot \"./k.txt\" using 1:4 title \"term 2,    4*dedr(a1)/a1\" w lp\n
-      replot \"./k.txt\" using 1:5 title \"term 3,    de2dr2(a2)\" w lp\n
-      replot \"./k.txt\" using 1:6 title \"term 4,    2*dedr(a2)/a2\" w lp\n
-      ")}
-
-    File.open("./plot_gamma.gp",'w'){|io|
-      io.print("
-      set format x \"%.2e\"\n
-      set xlabel \"a1\"
-      set ylabel \"erg\"
-      plot \"./gamma.txt\" using 1:2 title \"gamma\" w lp\n
-      replot \"./gamma.txt\" using 1:3 title \"xxxx\" w lp\n
-      replot \"./gamma.txt\" using 1:4 title \"xxyy\" w lp\n
-      ")}
-  end
-end
-
-#lj.rbにclassLJ_jindoがあるけど，後の切り分けのために新たに作成.理想はPOTCARの中
-class DiffLjJindo
-  attr_reader :m, :n, :r0, :atom_mass
-  def initialize(src)
-    @@d0,@@m,@@n,@@r0=src[:d0],src[:m],src[:n],src[:r0_no_angstrom]
-    @m, @n, @r0, @atom_mass=src[:m],src[:n], src[:r0_no_angstrom], src[:atom_mass_no_avogado]#計算のために参照できるようにしとく
-  end
-
-  def energy(r)
-    ene=-@@d0*((r/@@r0)**(-@@n)*@@m-(r/@@r0)**(-@@m)*@@n)/(@@m-@@n)
-  end
-
-  def dedr(r)
-    dedr=-@@d0*@@m*@@n / ((@@n-@@m)*r) * ((@@r0/r)**@@n - (@@r0/r)**@@m)
-  end
-
-  def de2dr2(r)
-    de2dr2 = @@d0*@@m*@@n / ((@@n-@@m)*r**2) * ((@@n+1)*(@@r0/r)**@@n - (@@m+1)*(@@r0/r)**@@m)
-  end
-
-  def de3dr3(r)
-    de3dr3 = @@d0*@@m*@@n / ((@@n-@@m)*r**3) * ((@@m+1)*(@@m+2)*(@@r0/r)**@@m - (@@n+1)*(@@n+2)*(@@r0/r)**@@n)
-  end
-
-  def de4dr4(r)
-    de4dr4 = @@d0*@@m*@@n / ((@@n-@@m)*r**4) * ((@@n+1)*(@@n+2)*(@@n+3)*(@@r0/r)**@@n - (@@m+1)*(@@m+2)*(@@m+3)*(@@r0/r)**@@m)
   end
 end

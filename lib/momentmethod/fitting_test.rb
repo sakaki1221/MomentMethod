@@ -1,6 +1,6 @@
-  require 'yaml'
-  require 'gnuplot'
-  include Math
+require 'yaml'
+require 'gnuplot'
+include Math
 
 module Potential_cu
   LATTICE=2.57162307160314e-10
@@ -84,7 +84,7 @@ class FittingTest < MomentMethod
   PLANCK2 = 6.626e-34
   HBAR2 = PLANCK2/(2.0*PI)
 
-  def initialize(structure)
+  def initialize()
     ###plotのために必要な変数
     @@data_temp=[]
     @@data_energy=[]
@@ -98,9 +98,7 @@ class FittingTest < MomentMethod
     @@data_large_a=[]
     @@data_g_k2=[]
     ###
-    puts "Hi,e0test"
-    @structure=structure
-    puts "structure = #{@structure}"
+    puts "fittingtest"
     calc_moment
   end
 
@@ -186,8 +184,8 @@ class FittingTest < MomentMethod
       @@data_energy << psi
       @@data_energy_no_u0 << psi_no_u0
       @@data_lattice <<a1_cal
-      puts "u0_ev, psi0_ev, psi_linear_ev, psi, psi_no_u0, large_a"
-      check(u0_ev, psi0_ev, psi_linear_ev, psi, psi_no_u0,large_a)
+      puts "u0_ev, psi0_ev, psi_linear_ev, psi, psi_no_u0"
+      check(u0_ev, psi0_ev, psi_linear_ev, psi, psi_no_u0)
       puts "\n"
 
     end
@@ -208,8 +206,8 @@ class FittingTest < MomentMethod
     #@@data_temp.each_with_index {|tmp, i| puts "#{tmp} #{@@data_gamma2[i]}" }
     #p "large_a"
     #@@data_temp.each_with_index {|tmp, i| puts "#{tmp} #{@@data_large_a[i]}" }
-    p "gamma/k^2---------------------------------"
-    @@data_temp.each_with_index {|tmp, i| puts "#{tmp} #{@@data_g_k2[i]}" }
+    #p "gamma/k^2---------------------------------"
+    #@@data_temp.each_with_index {|tmp, i| puts "#{tmp} #{@@data_g_k2[i]}" }
   end
 
   def calc_k_fitting(a1)

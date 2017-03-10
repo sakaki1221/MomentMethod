@@ -44,18 +44,7 @@ when :plot then
 when :plotdata then
   PlotData.new
 when :fittingtest then
-  FittingTest.new(@opts[:structure])
+  FittingTest.new()
 when :potj then
   MomentMethodJ.new(@opts[:structure])
 end
-
-=begin
-FileUtils.cd(target_path){
-  case @opts[:calculation]
-  when :momentmethod then
-    MomentMethod.new(@opts[:structure])
-  when :plot then
-    DataPlot.new(@opts[:plot_type],@opts[:structure])
-  end
-}
-=end

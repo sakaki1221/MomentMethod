@@ -60,10 +60,8 @@ class MomentMethodJ < MomentMethod
           aa1[change] = aa1[change-1] + gap[change][same]
           aa2[change] = aa1[change]*sqrt(2.0)
           a1, a2 = aa1[change], aa2[change]
-          puts "a1, same, change"
-          check(a1, same, change)
           k = calc_k_noboltz(a1,a2,@structure)
-          atom_mass = @@potential.atom_mass/AVOGADO*1e-3
+          atom_mass = @@potential.atom_mass/AVOGADO*1e-3 #gをkgに変換
           k/atom_mass
           omega = sqrt(k/atom_mass)
           x = HBAR2*omega/(2.0*theta)
@@ -72,13 +70,14 @@ class MomentMethodJ < MomentMethod
           u0 = calc_u0_j(a1,a2)
           psi0 = calc_psi0(x,theta)
           large_a = calc_large_a_maple(x, gt_k2)
-          p y0 = calc_y0(k, gamma, theta, large_a)
+          y0 = calc_y0(k, gamma, theta, large_a)
           psi_nonli = calc_psi_nonli(k, x, gamma,theta) #nonlinear fcc thesis(1988)p516(19)
           total_gap = comp_gap + gap[change][same]
           break if y0 - total_gap < 0
         end
-        #ここでデータをtmpに入れとく必要がある厳密には結果に表示される格子の長さとそれによるk,gammaの値は合わない．
+        #厳密には結果に表示される格子の長さとk,gammaの値は合わない．
         #これは，格子の長さはy0を越える前のもので，他のデータはy0を越えた後のものをプロットしてるから
+        #ただ，値の差は無視できるほど小さいためこのままにしておく．
         aa1[change] = aa1[change] - (10**(-(11+change))).to_f
         aa2[change] = aa1[change]*sqrt(2)
         comp_gap += gap[change][same-1]
@@ -102,10 +101,12 @@ class MomentMethodJ < MomentMethod
       @@data_energy_no_u0 << psi_no_u0
       @@data_lattice <<a1_cal
       @@data_y0_large_a << sqrt(large_a)
-      puts "u0_ev, psi0_ev, psi_nonli_ev, psi,psi_no_u0, large_a"
-      check(u0_ev, psi0_ev, psi_nonli_ev, psi,psi_no_u0, large_a)
+      puts "u0_ev, psi0_ev, psi_nonli_ev, psi,psi_no_u0"
+      check(u0_ev, psi0_ev, psi_nonli_ev, psi,psi_no_u0)
       puts "\n"
     end
+=begin
+    #ここからデータプロット用
     p "lattice-------------------------------------------"
     @@data_temp.each_with_index {|tmp, i| puts "#{tmp} #{@@data_lattice[i]}" }
     p "coeff---------------------------------------------"
@@ -117,7 +118,7 @@ class MomentMethodJ < MomentMethod
     p "sqrt(large_a) ----------------------------------------"
     @@data_temp.each_with_index {|tmp, i| puts "#{tmp} #{@@data_y0_large_a[i]}" }
     plot_y0_large_a
-
+=end
   end
   def calc_k_noboltz(a1,a2,structure)#ボルツマン定数かけてないk
     k = 2.0*@@potential.de2dr2(a1) + 4.0*@@potential.dedr(a1)/a1 + @@potential.de2dr2(a2) + 2.0*@@potential.dedr(a2)/a2;
