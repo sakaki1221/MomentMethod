@@ -3,6 +3,7 @@ githubのMarkDownは数式に対応していないため少し見ずらくなる
 
 ## 使い方
 sample_calcの中にそれぞれのPOTCARが入っています．
+
 神藤さんの従来のMoment法の計算は
 ```
 momentmethod sample_calc/jindo_Cu/POTCAR
@@ -16,6 +17,20 @@ VASPを導入したMoment法は
 momentvasp sample_calc/vasp_Cu/POTCAR.rb
 ```
 となっています．
+
+sample_calcは次のようになる．
+```
+├── jindo_Ag  　#神藤さんの元のプログラムのポテンシャルデータ
+├── jindo_Ag_J  #単位をJに変換し，2で割って1原子あたりのポテンシャルにしたもの．
+├── jindo_Au
+├── jindo_Au_J
+├── jindo_Cu
+├── jindo_Cu_J
+├── vasp_Ag     #MomentVasp用のPOTCAR．
+├── vasp_Al
+├── vasp_Au
+└── vasp_Cu
+```
 
 
 
