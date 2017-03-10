@@ -62,7 +62,6 @@ class MomentVASP < MomentMethod
           a1, a2 = aa1[change], aa2[change]
           k = calc_k_fitting(a1)
           atom_mass = MASS/AVOGADO*1e-3#
-          k/atom_mass
           omega = sqrt(k/atom_mass)
           x = HBAR2*omega/(2.0*theta)
           gamma = calc_gamma_fitting(a1)

@@ -15,12 +15,8 @@ command_parser = OptionParser.new do |opt|
     opt.version = Momentmethod::VERSION
     puts opt.ver
   }
-  opt.on('--structure [STRUCTURE]','???plot k and gamma in Moment method by gnuplot, STRUCTURE=jindofcc, sakakifcc') {|v|
+  opt.on('--structure [STRUCTURE]','STRUCTURE=jindofcc, sakakifcc') {|v|
     @opts[:structure]= v.to_s if v!=nil
-  }
-  opt.on('--plot [PROTTYPE]','plot data by gnuplot, PROTTYPE=') {|v|
-    @opts[:calculation]=:plot
-    @opts[:plot_type]= v.to_s if v!=nil
   }
   opt.on('--fittingtest','test for vasp') {
     @opts[:calculation]=:fittingtest
@@ -38,9 +34,6 @@ $target_path = @argv[0]==nil ? './' : @argv[0]
 case @opts[:calculation]
 when :momentmethod then
   MomentMethod.new(@opts[:structure])
-  #MomentPlot.new(@opts[:structure],1)
-when :plot then
-  DataPlot.new(@opts[:plot_type],@opts[:structure])
 when :plotdata then
   PlotData.new
 when :fittingtest then

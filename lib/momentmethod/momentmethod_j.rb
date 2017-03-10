@@ -153,6 +153,7 @@ class MomentMethodJ < MomentMethod
     z2=6
     return u0 = z1*@@potential.energy(a1) + z2*@@potential.energy(a2)
   end
+
   def plot_y0_large_a
     Gnuplot.open do |gp|
       Gnuplot::Plot.new( gp ) do |plot|
