@@ -2,11 +2,6 @@ require 'optparse'
 require 'fileutils'
 require 'momentmethod/version'
 require 'momentmethod/momentmethod'
-require 'momentmethod/vasptest'
-require 'momentmethod/vasptest_ev'
-require 'momentmethod/e0test'
-require 'momentmethod/testboltz_e8'
-require 'momentmethod/e10boltz'
 require 'momentmethod/fitting_test'
 require 'momentmethod/momentmethod_j'
 require 'momentmethod/plotdata'
@@ -26,18 +21,6 @@ command_parser = OptionParser.new do |opt|
   opt.on('--plot [PROTTYPE]','plot data by gnuplot, PROTTYPE=') {|v|
     @opts[:calculation]=:plot
     @opts[:plot_type]= v.to_s if v!=nil
-  }
-  opt.on('--test','test for vasp') {
-    @opts[:calculation]=:vasptest
-  }
-  opt.on('--e0test','test for vasp') {
-    @opts[:calculation]=:e0test
-  }
-  opt.on('--boltztest','test for vasp') {
-    @opts[:calculation]=:boltztest
-  }
-  opt.on('--e10boltz','test for vasp') {
-    @opts[:calculation]=:e10boltz
   }
   opt.on('--fittingtest','test for vasp') {
     @opts[:calculation]=:fittingtest
@@ -60,14 +43,6 @@ when :plot then
   DataPlot.new(@opts[:plot_type],@opts[:structure])
 when :plotdata then
   PlotData.new
-when :vasptest then
-  VaspTest.new(@opts[:structure])
-when :e0test then
-  E0test.new(@opts[:structure])
-when :boltztest then
-  TestBoltz.new(@opts[:structure])
-when :e10boltz then
-  E10boltz.new(@opts[:structure])
 when :fittingtest then
   FittingTest.new(@opts[:structure])
 when :potj then

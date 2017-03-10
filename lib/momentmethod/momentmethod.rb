@@ -16,7 +16,7 @@ class MomentMethod
     @@data_lattice=[]
     @@data_large_a=[]
     ###
-    puts "Hi,moment"
+    puts "MomentMethod"
     @structure=structure
     puts "structure = #{@structure}"
     select
@@ -30,7 +30,8 @@ class MomentMethod
 #  def select(file='POTCAR')
   def select(file='POTCAR')
     p $target_path
-    src = YAML.load_file($target_path+"POTCAR")
+    #src = YAML.load_file($target_path+"POTCAR")
+    src = YAML.load_file($target_path)
     #src = YAML.load_file(POTCAR)
     @@element=src[:element]
     p "element=#{@@element}"

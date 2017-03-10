@@ -158,8 +158,6 @@ class FittingTest < MomentMethod
           y0 = calc_y0(k, gamma, theta, large_a)
           psi_linear = calc_psi_linear(k, x, gamma, theta)*3#3倍しているのはy,z方向を考慮に入れるため
           total_gap = comp_gap + gap[change][same]
-          #テストでゼロ点振動を入れてみる
-          #p zeroenergy = ev_from_j(HBAR2*omega/2.0)
           break if y0 - total_gap < 0
         end
         aa1[change] = aa1[change] - (10**(-(11+change))).to_f
