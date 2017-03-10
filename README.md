@@ -1,5 +1,4 @@
 # MomentMethod
-githubのMarkDownは数式に対応していないため少し見ずらくなるかも．．．．
 
 ## 使い方
 sample_calcの中にそれぞれのPOTCARが入っています．
